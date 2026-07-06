@@ -40,10 +40,14 @@
       font-family: 'Be Vietnam Pro', sans-serif;
       background-color: var(--bg-cream);
       color: var(--text-dark);
-      overflow: hidden;
-      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
       width: 100vw;
       user-select: none;
+    }
+    body.map-mode {
+      overflow: hidden;
+      height: 100vh;
     }
 
     /* ============ SPLASH SCREEN ============ */
@@ -1038,10 +1042,695 @@
         font-size: 13.5px;
       }
     }
+
+    /* ============ NAVBAR ============ */
+    #mainNavbar {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 9000;
+      background: rgba(40, 10, 0, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(220,160,95,0.2);
+      height: 60px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      transition: background 0.3s ease;
+    }
+    #mainNavbar.visible { display: flex; }
+    #mainNavbar.scrolled { background: rgba(30,6,0,0.98); }
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .navbar-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg,#ab2d0a,#dca05f);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .navbar-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #f7e6c4;
+      line-height: 1.2;
+      max-width: 160px;
+    }
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link {
+      color: rgba(247,230,196,0.8);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: 20px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+      background: rgba(220,160,95,0.18);
+    }
+    .nav-link.active { color: #dca05f; }
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-toggle {
+      display: flex;
+      border: 1px solid rgba(220,160,95,0.4);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: rgba(247,230,196,0.6);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: rgba(220,160,95,0.3);
+      color: #dca05f;
+    }
+    .navbar-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .navbar-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #f7e6c4;
+      border-radius: 2px;
+    }
+
+    /* ============ INTRO PAGE ============ */
+    #introPage {
+      display: none;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    #introPage.visible { display: flex; }
+
+    /* Hero */
+    .intro-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 560px;
+      background: url('splashscreen.png') center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+    }
+    .intro-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(20,5,0,0.35) 0%, rgba(20,5,0,0.75) 100%);
+    }
+    .intro-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      padding: 0 48px;
+    }
+    .intro-hero-badge {
+      display: inline-block;
+      background: rgba(220,160,95,0.25);
+      border: 1px solid rgba(220,160,95,0.5);
+      color: #dca05f;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .intro-hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 62px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .intro-hero-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 32px;
+    }
+    .intro-hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(247,230,196,0.7);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+    }
+    .scroll-line {
+      width: 40px;
+      height: 1px;
+      background: rgba(247,230,196,0.5);
+    }
+
+    /* Section base */
+    .intro-section {
+      padding: 80px 0;
+    }
+    .intro-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #ab2d0a;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 700;
+      color: var(--primary-color);
+      line-height: 1.25;
+      margin-bottom: 24px;
+    }
+    .section-divider {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg,#ab2d0a,#dca05f);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* About section */
+    .intro-about {
+      background: #fffaf2;
+    }
+    .intro-about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 15px;
+      line-height: 1.85;
+      color: #4e3524;
+      margin-bottom: 16px;
+      text-align: justify;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+      object-fit: cover;
+      max-height: 400px;
+    }
+    .about-img-badge {
+      position: absolute;
+      bottom: -18px;
+      left: 20px;
+      background: #5a1a00;
+      color: #f7e6c4;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+    .about-img-badge strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: #dca05f;
+    }
+
+    /* History Timeline */
+    .intro-history {
+      background: #2c0f00;
+    }
+    .intro-history .section-label { color: #dca05f; }
+    .intro-history .section-title { color: #f7e6c4; }
+    .history-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 12px;
+      border-left: 2px solid rgba(220,160,95,0.3);
+      padding-left: 28px;
+    }
+    .timeline-item {
+      position: relative;
+      padding: 20px 0 24px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -36px;
+      top: 24px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ab2d0a;
+      border: 2px solid #dca05f;
+    }
+    .timeline-year {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #dca05f;
+      margin-bottom: 6px;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #f0d9b5;
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      color: rgba(247,230,196,0.7);
+      line-height: 1.7;
+    }
+
+    /* Audio section */
+    .intro-audio {
+      background: linear-gradient(135deg,#faf0de 0%,#fff8ee 100%);
+    }
+    .audio-card {
+      background: #5a1a00;
+      border-radius: 16px;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.18);
+    }
+    .audio-card-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg,#ab2d0a,#dca05f);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .audio-card-icon:hover { transform: scale(1.06); box-shadow: 0 8px 24px rgba(171,45,10,0.5); }
+    .audio-card-icon svg { width: 30px; height: 30px; fill: #fff; }
+    .audio-card-info { flex: 1; min-width: 0; }
+    .audio-card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #f7e6c4;
+      margin-bottom: 6px;
+    }
+    .audio-card-sub {
+      font-size: 13px;
+      color: rgba(247,230,196,0.55);
+      margin-bottom: 16px;
+    }
+    .audio-bar-track {
+      height: 4px;
+      background: rgba(247,230,196,0.15);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+    }
+    .audio-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg,#ab2d0a,#dca05f);
+      border-radius: 2px;
+      transition: width 0.2s linear;
+    }
+    .audio-bar-time {
+      font-size: 11px;
+      color: rgba(247,230,196,0.45);
+      margin-top: 6px;
+      text-align: right;
+    }
+    .audio-note {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* Map section */
+    .intro-map {
+      background: #fffaf2;
+    }
+    .map-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+      margin-top: 40px;
+    }
+    .map-iframe-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.14);
+      height: 380px;
+    }
+    .map-iframe-wrap iframe { width: 100%; height: 100%; border: none; }
+    .map-info-card {
+      background: #5a1a00;
+      border-radius: 16px;
+      padding: 32px;
+      color: #f7e6c4;
+    }
+    .map-info-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #dca05f;
+      margin-bottom: 22px;
+    }
+    .map-detail-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+      align-items: flex-start;
+    }
+    .map-detail-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(220,160,95,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .map-detail-icon svg { width: 18px; height: 18px; fill: #dca05f; }
+    .map-detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: rgba(220,160,95,0.65);
+      margin-bottom: 3px;
+    }
+    .map-detail-value {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(247,230,196,0.85);
+    }
+    .map-action-btn {
+      display: block;
+      margin-top: 24px;
+      background: linear-gradient(135deg,#ab2d0a,#d45020);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 28px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-align: center;
+      transition: opacity 0.2s, transform 0.2s;
+      text-decoration: none;
+      font-family: inherit;
+    }
+    .map-action-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* Intro footer */
+    .intro-footer {
+      background: #1a0400;
+      padding: 28px 40px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(247,230,196,0.4);
+    }
+
+    /* Enter map button (floating on hero) */
+    .hero-enter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(171,45,10,0.9);
+      border: 1px solid rgba(220,160,95,0.4);
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+      font-family: inherit;
+    }
+    .hero-enter-btn:hover {
+      background: rgba(171,45,10,1);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(171,45,10,0.45);
+    }
+
+    /* Mobile responsive for intro */
+    @media (max-width: 768px) {
+      #mainNavbar { padding: 0 16px; }
+      .navbar-logo-text { display: none; }
+      .navbar-links { display: none; gap: 0; }
+      .navbar-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 60px; left: 0; right: 0;
+        background: rgba(30,6,0,0.97);
+        padding: 16px;
+        gap: 4px;
+        z-index: 8999;
+      }
+      .navbar-hamburger { display: flex; }
+      .intro-hero-content { padding: 0 20px; }
+      .intro-container { padding: 0 20px; }
+      .intro-section { padding: 56px 0; }
+      .intro-about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .about-img-wrap { order: -1; }
+      .map-grid { grid-template-columns: 1fr; gap: 24px; }
+      .map-iframe-wrap { height: 260px; }
+      .audio-card { flex-direction: column; text-align: center; padding: 28px 20px; gap: 20px; }
+    }
   </style>
 </head>
 
 <body>
+
+  <!-- NAVBAR -->
+  <nav id="mainNavbar">
+    <a class="navbar-logo" href="#" onclick="navigateToIntro(); return false;">
+      <div class="navbar-logo-icon">D</div>
+      <div class="navbar-logo-text" data-vi="Dinh Tỉnh Trưởng Phú Thành" data-en="Phuoc Thanh Governor's Mansion">Dinh Tỉnh Trưởng Phú Thành</div>
+    </a>
+    <button class="navbar-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar-links" id="navLinks">
+      <button class="nav-link active" id="navIntro" onclick="navigateToIntro()" data-vi="Giới Thiệu" data-en="Overview">Giới Thiệu</button>
+      <button class="nav-link" id="navMap" onclick="navigateToMap()" data-vi="Sơ Đồ Di Tích" data-en="Site Map">Sơ Đồ Di Tích</button>
+      <button class="nav-link" id="navProject" onclick="viewProjectDetails()" data-vi="Thông Tin Dự Án" data-en="Project Info">Thông Tin Dự Án</button>
+    </div>
+    <div class="navbar-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btnVI" onclick="setLang('vi')">VI</button>
+        <button class="lang-btn" id="btnEN" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- INTRO PAGE -->
+  <div id="introPage">
+
+    <!-- Hero -->
+    <section class="intro-hero">
+      <div class="intro-hero-content">
+        <div class="intro-hero-badge" data-vi="DI TÍCH LỊCH SỬ CẤP QUỐC GIA" data-en="NATIONAL HISTORICAL MONUMENT">DI TÍCH LỊCH SỬ CẤP QUỐC GIA</div>
+        <h1 class="intro-hero-title" data-vi="Dinh Tỉnh Trưởng<br>Phú Thành" data-en="Phuoc Thanh<br>Governor's Mansion">Dinh Tỉnh Trưởng<br>Phú Thành</h1>
+        <p class="intro-hero-sub" data-vi="Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phú Thành." data-en="A witness to the nation's liberation struggle — marking the heroic years of Phuoc Thanh's people and armed forces.">Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phú Thành.</p>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <button class="hero-enter-btn" onclick="navigateToMap()">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
+            <span data-vi="Xem Sơ Đồ Di Tích" data-en="Explore Site Map">Xem Sơ Đồ Di Tích</span>
+          </button>
+          <div class="intro-hero-scroll" onclick="document.getElementById('aboutSection').scrollIntoView({behavior:'smooth'})">
+            <span class="scroll-line"></span>
+            <span data-vi="Tìm hiểu thêm" data-en="Learn more">Tìm hiểu thêm</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="intro-section intro-about" id="aboutSection">
+      <div class="intro-container">
+        <div class="intro-about-grid">
+          <div class="about-text">
+            <p class="section-label" data-vi="TỔNG QUAN" data-en="OVERVIEW">TỔNG QUAN</p>
+            <h2 class="section-title" data-vi="Di Tích Dinh Tỉnh Trưởng Phú Thành" data-en="Phuoc Thanh Governor's Mansion">Di Tích Dinh Tỉnh Trưởng Phú Thành</h2>
+            <div class="section-divider"></div>
+            <p data-vi="Dinh Tỉnh Trưởng Phước Thành (Phú Thành) là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960." data-en="Phuoc Thanh Governor's Mansion was the administrative headquarters of Phuoc Thanh Province — a provisional administrative unit that existed from 1959 to 1965 in Southern Vietnam. The building was constructed and completed around 1960.">Dinh Tỉnh Trưởng Phước Thành (Phú Thành) là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960.</p>
+            <p data-vi="Đặc trưng của di tích là phong cách kiến trúc Pháp thuộc kết hợp vật liệu và chi tiết trang trí Nam Bộ. Đứng từ xa, tòa nhà nổi bật với hệ cột trụ sơn cam màu gạch, ngọn tháp nhọn cổ kính và các bức bích họa vẽ tay đồ sộ tại hai cánh nhà tả – hữu." data-en="The monument features French colonial architecture combined with Southern Vietnamese decorative materials and details. The building stands out with brick-colored columns, a classic pointed tower, and massive hand-painted murals on both wings.">Đặc trưng của di tích là phong cách kiến trúc Pháp thuộc kết hợp vật liệu và chi tiết trang trí Nam Bộ. Nổi bật với hệ cột trụ sơn cam màu gạch, ngọn tháp nhọn cổ kính và các bức bích họa vẽ tay tại hai cánh nhà.</p>
+            <p data-vi="Với những giá trị lịch sử và kiến trúc nổi bật, Dinh Tỉnh Trưởng Phú Thành là công trình xứng đáng được bảo tồn và phát huy giá trị như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương." data-en="With its outstanding historical and architectural values, the Phuoc Thanh Governor's Mansion deserves to be preserved and promoted as an important cultural heritage of the Phu Giao — Binh Duong region.">Với những giá trị lịch sử và kiến trúc nổi bật, đây là công trình xứng đáng được bảo tồn như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương.</p>
+          </div>
+          <div class="about-img-wrap">
+            <img src="dinhtinhtruong.png" alt="Dinh Tỉnh Trưởng Phú Thành">
+            <div class="about-img-badge">
+              <strong>1960</strong>
+              <span data-vi="Năm xây dựng" data-en="Year built">Năm xây dựng</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- History Timeline -->
+    <section class="intro-section intro-history">
+      <div class="intro-container">
+        <p class="section-label" data-vi="LỊCH SỬ HÌNH THÀNH" data-en="HISTORICAL BACKGROUND">LỊCH SỬ HÌNH THÀNH</p>
+        <h2 class="section-title" data-vi="Hành Trình Qua Các Thời Kỳ" data-en="A Journey Through the Ages">Hành Trình Qua Các Thời Kỳ</h2>
+        <div class="section-divider"></div>
+        <div class="history-timeline">
+          <div class="timeline-item">
+            <div class="timeline-year">1959 — 1960</div>
+            <div class="timeline-title" data-vi="Thành lập tỉnh Phước Thành & Xây dựng Dinh" data-en="Establishment of Phuoc Thanh Province & Construction">Thành lập tỉnh Phước Thành & Xây dựng Dinh</div>
+            <div class="timeline-desc" data-vi="Ngày 22/10/1959, tỉnh Phước Thành được thành lập theo sắc lệnh của chính quyền Sài Gòn. Dinh Tỉnh Trưởng được xây dựng ngay sau đó để phục vụ nhu cầu hành chính của tỉnh mới." data-en="On October 22, 1959, Phuoc Thanh Province was established by Saigon government decree. The Governor's Mansion was built shortly after to serve the administrative needs of the new province.">Ngày 22/10/1959, tỉnh Phước Thành được thành lập theo sắc lệnh của chính quyền Sài Gòn. Dinh Tỉnh Trưởng được xây dựng ngay sau đó để phục vụ nhu cầu hành chính của tỉnh mới.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">1961 — 1965</div>
+            <div class="timeline-title" data-vi="Giai đoạn đấu tranh giải phóng" data-en="Liberation Struggle Period">Giai đoạn đấu tranh giải phóng</div>
+            <div class="timeline-desc" data-vi="Trong giai đoạn này, Dinh Tỉnh Trưởng là mục tiêu trọng điểm của các hoạt động quân sự và đấu tranh chính trị của lực lượng cách mạng. Nhiều trận đánh oanh liệt đã diễn ra xung quanh khu vực này." data-en="During this period, the Governor's Mansion was a key target of military and political struggle activities by revolutionary forces. Many heroic battles took place around this area.">Trong giai đoạn này, Dinh là mục tiêu trọng điểm của các hoạt động quân sự và đấu tranh chính trị. Nhiều trận đánh oanh liệt đã diễn ra xung quanh khu vực này.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">1975</div>
+            <div class="timeline-title" data-vi="Giải phóng hoàn toàn" data-en="Complete Liberation">Giải phóng hoàn toàn</div>
+            <div class="timeline-desc" data-vi="Sau ngày 30/4/1975, toàn bộ khu vực tỉnh Phước Thành được giải phóng hoàn toàn. Dinh Tỉnh Trưởng được tiếp quản và dần trở thành biểu tượng lịch sử của vùng đất Phú Giáo." data-en="After April 30, 1975, the entire Phuoc Thanh Province area was completely liberated. The Governor's Mansion was taken over and gradually became a historical symbol of the Phu Giao region.">Sau ngày 30/4/1975, toàn bộ khu vực được giải phóng hoàn toàn. Dinh trở thành biểu tượng lịch sử của vùng đất Phú Giáo.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-year">Hiện nay</div>
+            <div class="timeline-title" data-vi="Bảo tồn & Số hóa di tích" data-en="Preservation & Digital Heritage">Bảo tồn & Số hóa di tích</div>
+            <div class="timeline-desc" data-vi="Dinh Tỉnh Trưởng Phú Thành được các cơ quan chức năng và các tổ chức văn hóa quan tâm bảo tồn. Dự án số hóa di tích được triển khai nhằm lưu giữ và phát huy giá trị lịch sử cho các thế hệ tương lai." data-en="The Phuoc Thanh Governor's Mansion is being preserved by relevant authorities and cultural organizations. A digital heritage project has been launched to preserve and promote its historical values for future generations.">Dinh được quan tâm bảo tồn bởi các cơ quan văn hóa. Dự án số hóa di tích được triển khai nhằm lưu giữ giá trị lịch sử cho các thế hệ tương lai.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audio -->
+    <section class="intro-section intro-audio">
+      <div class="intro-container">
+        <p class="section-label" data-vi="THUYẾT MINH" data-en="AUDIO GUIDE">THUYẾT MINH</p>
+        <h2 class="section-title" data-vi="Audio Thuyết Minh Di Tích" data-en="Heritage Audio Guide">Audio Thuyết Minh Di Tích</h2>
+        <div class="section-divider"></div>
+        <div class="audio-card">
+          <div class="audio-card-icon" onclick="toggleIntroAudio()" id="introAudioBtn">
+            <svg id="introAudioPlayIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="introAudioPauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </div>
+          <div class="audio-card-info">
+            <div class="audio-card-title" data-vi="Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phú Thành" data-en="Overview commentary on Phuoc Thanh Governor's Mansion">Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phú Thành</div>
+            <div class="audio-card-sub" data-vi="Đội hình Chuyên Nâng cao Kỹ năng số — Chiến dịch TNS Kinh tế 2026" data-en="Digital Skills Enhancement Team — Economic Volunteer Campaign 2026">Đội hình Chuyên Nâng cao Kỹ năng số — Chiến dịch TNS Kinh tế 2026</div>
+            <div class="audio-bar-track" id="introAudioTrack" onclick="introAudioSeek(event)">
+              <div class="audio-bar-fill" id="introAudioFill"></div>
+            </div>
+            <div class="audio-bar-time" id="introAudioTime">00:00</div>
+          </div>
+        </div>
+        <p class="audio-note" data-vi="🎧 Audio thuyết minh đang được cập nhật. Vui lòng quay lại sau." data-en="🎧 Audio guide is being updated. Please check back later.">🎧 Audio thuyết minh đang được cập nhật. Vui lòng quay lại sau.</p>
+      </div>
+    </section>
+
+    <!-- Map & Address -->
+    <section class="intro-section intro-map">
+      <div class="intro-container">
+        <p class="section-label" data-vi="VỊ TRÍ" data-en="LOCATION">VỊ TRÍ</p>
+        <h2 class="section-title" data-vi="Địa Chỉ & Bản Đồ" data-en="Address & Map">Địa Chỉ & Bản Đồ</h2>
+        <div class="section-divider"></div>
+        <div class="map-grid">
+          <div class="map-iframe-wrap">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251.85579776892632!2d106.79474951101446!3d11.296585432467163!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174b942a447c317%3A0xad2b6528892fbc3c!2zRGluaCB04buJbmggdHLGsOG7n25nIHThu4luaCBQaMaw4bubYyBUaMOgbmg!5e1!3m2!1svi!2sus!4v1783346727805!5m2!1svi!2sus" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+          <div class="map-info-card">
+            <div class="map-info-title" data-vi="Thông Tin Liên Hệ & Địa Chỉ" data-en="Contact & Address">Thông Tin Liên Hệ & Địa Chỉ</div>
+            <div class="map-detail-row">
+              <div class="map-detail-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+              <div>
+                <div class="map-detail-label" data-vi="ĐỊA CHỈ" data-en="ADDRESS">ĐỊA CHỈ</div>
+                <div class="map-detail-value" data-vi="Đường Hùng Vương, thị trấn Phú Giáo,<br>huyện Phú Giáo, tỉnh Bình Dương" data-en="Hung Vuong Street, Phu Giao Town,<br>Phu Giao District, Binh Duong Province">Đường Hùng Vương, thị trấn Phú Giáo,<br>huyện Phú Giáo, tỉnh Bình Dương</div>
+              </div>
+            </div>
+            <div class="map-detail-row">
+              <div class="map-detail-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+              <div>
+                <div class="map-detail-label" data-vi="GIỜ THAM QUAN" data-en="VISITING HOURS">GIỜ THAM QUAN</div>
+                <div class="map-detail-value" data-vi="Thứ Hai – Chủ Nhật: 07:00 – 17:00" data-en="Monday – Sunday: 07:00 – 17:00">Thứ Hai – Chủ Nhật: 07:00 – 17:00</div>
+              </div>
+            </div>
+            <div class="map-detail-row">
+              <div class="map-detail-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+              <div>
+                <div class="map-detail-label" data-vi="GOOGLE MAPS" data-en="GOOGLE MAPS">GOOGLE MAPS</div>
+                <div class="map-detail-value">7QWV+PWC, Hùng Vương,<br>Phú Giáo, Bình Dương</div>
+              </div>
+            </div>
+            <a href="https://maps.google.com/?q=11.296585,106.794749" target="_blank" class="map-action-btn" data-vi="Chỉ Đường Trên Google Maps" data-en="Get Directions on Google Maps">Chỉ Đường Trên Google Maps</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="intro-footer">
+      <span data-vi="© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phú Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026" data-en="© 2026 Digitizing Phuoc Thanh Governor's Mansion · Digital Skills Enhancement Team · Economic Volunteer Campaign 2026">© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phú Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026</span>
+    </footer>
+  </div>
 
   <!-- 1. SPLASH SCREEN -->
   <div id="splashScreen">

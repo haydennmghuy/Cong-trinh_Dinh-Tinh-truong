@@ -804,34 +804,135 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// Launch App action (called from Splash Screen)
-function launchApp() {
-  const splash = document.getElementById("splashScreen");
-  splash.style.opacity = 0;
+// ===== INTRO AUDIO PLAYER =====
+const introAudioEl = new Audio();
+// introAudioEl.src = 'audio_tongquan.mp3'; // Đặt file audio tổng quan ở đây khi có
+let introAudioPlaying = false;
 
-  setTimeout(() => {
-    splash.style.display = "none";
+function toggleIntroAudio() {
+  if (!introAudioEl.src || introAudioEl.src === window.location.href) {
+    alert('Audio thuyết minh đang được cập nhật. Vui lòng quay lại sau!');
+    return;
+  }
+  if (introAudioPlaying) {
+    introAudioEl.pause();
+    introAudioPlaying = false;
+  } else {
+    introAudioEl.play();
+    introAudioPlaying = true;
+  }
+  document.getElementById('introAudioPlayIcon').style.display = introAudioPlaying ? 'none' : 'block';
+  document.getElementById('introAudioPauseIcon').style.display = introAudioPlaying ? 'block' : 'none';
+}
+introAudioEl.addEventListener('timeupdate', () => {
+  if (!introAudioEl.duration) return;
+  const pct = (introAudioEl.currentTime / introAudioEl.duration) * 100;
+  document.getElementById('introAudioFill').style.width = pct + '%';
+  const m = Math.floor(introAudioEl.currentTime / 60);
+  const s = Math.floor(introAudioEl.currentTime % 60);
+  document.getElementById('introAudioTime').textContent =
+    `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+});
+introAudioEl.addEventListener('ended', () => {
+  introAudioPlaying = false;
+  document.getElementById('introAudioPlayIcon').style.display = 'block';
+  document.getElementById('introAudioPauseIcon').style.display = 'none';
+  document.getElementById('introAudioFill').style.width = '0%';
+});
+function introAudioSeek(event) {
+  if (!introAudioEl.duration) return;
+  const track = document.getElementById('introAudioTrack');
+  const rect = track.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width));
+  introAudioEl.currentTime = ratio * introAudioEl.duration;
+}
 
-    // Display main app
-    const appEl = document.getElementById("appContainer");
-    appEl.classList.add("active");
+// ===== LANGUAGE SYSTEM =====
+let currentLang = 'vi';
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('btnVI').classList.toggle('active', lang === 'vi');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+  document.querySelectorAll('[data-vi]').forEach(el => {
+    const content = el.getAttribute('data-' + lang);
+    if (content !== null) el.innerHTML = content;
+  });
+}
 
-    // Mount map
+// ===== NAVBAR SCROLL EFFECT =====
+window.addEventListener('scroll', () => {
+  const navbar = document.getElementById('mainNavbar');
+  if (!navbar) return;
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ===== MOBILE NAV TOGGLE =====
+function toggleMobileNav() {
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+}
+
+// ===== PAGE NAVIGATION =====
+function navigateToIntro() {
+  // Ẩn map, dừng audio
+  const appEl = document.getElementById('appContainer');
+  appEl.classList.remove('active');
+  appEl.style.display = 'none';
+  pauseAudio();
+
+  // Hiện intro
+  document.getElementById('introPage').classList.add('visible');
+  document.getElementById('mainNavbar').classList.add('visible');
+  document.body.classList.remove('map-mode');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  document.getElementById('navIntro').classList.add('active');
+  document.getElementById('navMap').classList.remove('active');
+  document.getElementById('navLinks').classList.remove('mobile-open');
+}
+
+function navigateToMap() {
+  // Ẩn intro
+  document.getElementById('introPage').classList.remove('visible');
+  document.getElementById('navLinks').classList.remove('mobile-open');
+
+  // Bật map-mode (overflow hidden)
+  document.body.classList.add('map-mode');
+  document.body.style.height = '100vh';
+
+  // Hiện map
+  const appEl = document.getElementById('appContainer');
+  appEl.style.display = 'block';
+  requestAnimationFrame(() => {
+    appEl.classList.add('active');
     map.invalidateSize();
-    showBuildingOverview();
+    if (!activeOverlayImage) showBuildingOverview();
+  });
+
+  document.getElementById('navMap').classList.add('active');
+  document.getElementById('navIntro').classList.remove('active');
+}
+
+// ===== LAUNCH APP (called from Splash Screen) =====
+function launchApp() {
+  const splash = document.getElementById('splashScreen');
+  splash.style.opacity = 0;
+  setTimeout(() => {
+    splash.style.display = 'none';
+    // Hiện navbar + trang giới thiệu
+    document.getElementById('mainNavbar').classList.add('visible');
+    document.getElementById('introPage').classList.add('visible');
+    document.body.classList.remove('map-mode');
   }, 800);
 }
 
-// Trigger initial rendering layout check
+// ===== RESIZE HANDLER =====
 window.addEventListener('resize', () => {
-  map.invalidateSize();
-
+  if (document.getElementById('appContainer').classList.contains('active')) {
+    map.invalidateSize();
+  }
   const isMobile = window.innerWidth <= 768;
   const projectBtn = document.getElementById("menuTextProject");
-  if (projectBtn) {
-    projectBtn.textContent = isMobile ? "DỰ ÁN" : "THÔNG TIN DỰ ÁN";
-  }
-
+  if (projectBtn) projectBtn.textContent = isMobile ? "DỰ ÁN" : "THÔNG TIN DỰ ÁN";
   if (currentViewMode === "building") {
     document.getElementById("menuTextInfo").textContent = isMobile ? "THÔNG TIN" : "THÔNG TIN DINH";
     document.getElementById("menuTextImages").textContent = isMobile ? "HÌNH ẢNH" : "HÌNH ẢNH DINH";
