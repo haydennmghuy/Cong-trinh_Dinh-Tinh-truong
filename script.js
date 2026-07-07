@@ -65,9 +65,104 @@ const ROOM_DATABASE = {
   3: {
     name: "Phòng trưng bày 03",
     subtitle: "Dân – Quân Phú Giáo trong cuộc kháng chiến chống Mỹ",
-    views: [],
-    artifacts: [],
-    available: false
+    views: [
+      "anhphong3/anhtoanphong3/IMG_8712.JPG"
+    ],
+    audio: "",
+    description: `
+      <p>Tại đây trưng bày một số tài liệu, bản đồ, hình ảnh và hiện vật tiêu biểu về lịch sử Dân và Quân Phú Giáo oai hùng trong cuộc kháng chiến chống đế quốc Mỹ cứu nước đầy gian khổ.</p>
+    `,
+    artifacts: [
+      {
+        id: "room3_marker1",
+        name: "Hiện vật trưng bày phòng 3 - Nhóm 1",
+        viewIndex: 0,
+        xRatio: 0.305,
+        yRatio: 0.420,
+        audio: "",
+        description: `
+          <p>Các hình ảnh và tranh tư liệu lịch sử mô tả trận chiến quyết liệt. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+        `,
+        images: [
+          "anhphong3/anhhienvat3/anhhienvat3.5.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.6.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.7.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.8.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.9.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.10.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.11.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.12.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.13.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.14.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.15.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.16.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.17.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.18.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.19.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.20.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.21.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.22.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.23.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.24.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.25.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.26.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.27.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.28.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.29.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.30.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.31.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.32.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.33.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.34.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.35.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.36.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.37.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.38.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.39.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.40.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.41.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.42.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.43.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.44.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.45.JPG"
+        ]
+      },
+      {
+        id: "room3_marker2",
+        name: "Hiện vật trưng bày phòng 3 - Nhóm 2",
+        viewIndex: 0,
+        xRatio: 0.699,
+        yRatio: 0.490,
+        audio: "",
+        description: `
+          <p>Bảng vàng danh dự vinh danh Bà mẹ Việt Nam Anh hùng của huyện Phú Giáo. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+        `,
+        images: [
+          "anhphong3/anhhienvat3/anhhienvat3.46.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.47.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.48.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.49.JPG"
+        ]
+      },
+      {
+        id: "room3_marker3",
+        name: "Hiện vật trưng bày phòng 3 - Nhóm 3",
+        viewIndex: 0,
+        xRatio: 0.778,
+        yRatio: 0.785,
+        audio: "",
+        description: `
+          <p>Tủ kính trưng bày trang thiết bị quân nhu như mũ sắt, quân trang của chiến sĩ. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+        `,
+        images: [
+          "anhphong3/anhhienvat3/anhhienvat3.1.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.2.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.3.JPG",
+          "anhphong3/anhhienvat3/anhhienvat3.4.JPG"
+        ]
+      }
+    ],
+    available: true
   },
   4: {
     name: "Phòng trưng bày 04",
