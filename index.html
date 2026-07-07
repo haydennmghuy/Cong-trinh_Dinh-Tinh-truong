@@ -3,16 +3,16 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Số hoá di tích lịch sử Dinh Tỉnh Trưởng Phú Thành</title>
+  <title>Số hoá di tích lịch sử Dinh Tỉnh Trưởng Phước Thành</title>
   <meta name="description"
-    content="Khám phá số hoá di tích lịch sử Dinh Tỉnh Trưởng Phú Thành, Phú Giáo, Bình Dương với công nghệ tương tác 360 độ và thuyết minh đa phương tiện.">
+    content="Khám phá số hoá di tích lịch sử Dinh Tỉnh Trưởng Phước Thành, Phú Giáo, Bình Dương với công nghệ tương tác 360 độ và thuyết minh đa phương tiện.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
     rel="stylesheet">
 
   <!-- Model Viewer (3D GLB) -->
@@ -40,7 +40,7 @@
     }
 
     body {
-      font-family: 'Be Vietnam Pro', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-cream);
       color: var(--text-dark);
       overflow-y: auto;
@@ -160,10 +160,10 @@
 
     /* Floating UI - Left Menu */
     .left-menu-container {
-      position: absolute;
-      top: 15px;
+      position: fixed;
+      top: 70px;
       left: 15px;
-      z-index: 3500;
+      z-index: 10001;
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -257,7 +257,7 @@
       background-color: #ba9f6c;
       border: 1px solid rgba(0, 0, 0, 0.08);
       color: #fff;
-      font-family: 'Be Vietnam Pro', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       font-weight: 700;
       padding: 0 16px;
@@ -298,7 +298,7 @@
     }
 
     .header-capsule h2 {
-      font-family: 'Be Vietnam Pro', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(14px, 2vw, 21px);
       font-weight: 700;
       color: #5c351f;
@@ -515,7 +515,7 @@
       border: none;
       background-color: #fff;
       color: #361706;
-      font-family: 'Be Vietnam Pro', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.06em;
@@ -827,7 +827,7 @@
 
     /* Leaflet marker tooltips */
     .room-tooltip {
-      font-family: 'Be Vietnam Pro', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 700;
       color: #5a1a00 !important;
       background-color: #fffcfa !important;
@@ -889,7 +889,7 @@
 
       /* --- Left menu mobile --- */
       .left-menu-container {
-        top: 8px;
+        top: 68px;
         left: 8px;
         gap: 5px;
       }
@@ -1254,79 +1254,91 @@
       background: #dca05f;
       box-shadow: 0 0 0 2px #dca05f, 0 0 12px rgba(220,160,95,0.4);
     }
-    .timeline-content { flex: 1; }
-    /* ===== TIMELINE IMAGE: WATER DROP SHAPE ===== */
-    .timeline-img-wrap {
-      margin-top: 18px;
+    /* ===== TIMELINE IMAGE: ORGANIC BLOB + BLUR-FADE EDGES ===== */
+    .timeline-img-outer {
       position: relative;
-      width: 180px;
-      height: 220px;
-      /* Water-drop / giọt nước: wide bottom, narrow top */
-      clip-path: polygon(
-        50% 0%,
-        85% 18%,
-        100% 50%,
-        85% 85%,
-        50% 100%,
-        15% 85%,
-        0% 50%,
-        15% 18%
-      );
-      overflow: hidden;
+      /* Extra overflow room so mask bleed doesn't clip visually */
+      padding: 16px;
       flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .timeline-img-wrap {
+      position: relative;
+      width: 200px;
+      height: 210px;
+      /* Organic blob shape — each pseudo variant differs */
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+      overflow: visible;
+      flex-shrink: 0;
+    }
+    /* Alternate blob shapes for 2nd and 4th items */
+    .timeline-item:nth-child(2n) .timeline-img-wrap {
+      border-radius: 42% 58% 38% 62% / 60% 42% 58% 40%;
     }
     .timeline-img-wrap img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      filter: sepia(40%) brightness(0.85);
-      transition: filter 0.5s ease, transform 0.5s ease;
+      border-radius: inherit;
+      filter: sepia(30%) brightness(0.88) contrast(1.05);
+      transition: filter 0.5s ease, transform 0.6s ease;
+      /* Mask fades out at edges into background #2c0f00 */
+      -webkit-mask-image: radial-gradient(
+        ellipse 78% 78% at 50% 48%,
+        #000 30%,
+        rgba(0,0,0,0.75) 55%,
+        rgba(0,0,0,0.3) 72%,
+        transparent 100%
+      );
+      mask-image: radial-gradient(
+        ellipse 78% 78% at 50% 48%,
+        #000 30%,
+        rgba(0,0,0,0.75) 55%,
+        rgba(0,0,0,0.3) 72%,
+        transparent 100%
+      );
     }
     .timeline-img-wrap:hover img {
-      filter: sepia(0%) brightness(1);
-      transform: scale(1.08);
+      filter: sepia(0%) brightness(1.05) contrast(1);
+      transform: scale(1.06);
     }
-    /* Glass overlay effect on top of water-drop */
-    .timeline-img-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(255,255,255,0.18) 0%,
-        transparent 50%,
-        rgba(0,0,0,0.25) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
-    }
+    /* Soft ambient glow ring underneath the blob */
     .timeline-img-wrap::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 40%, rgba(40,10,0,0.5) 100%);
-      z-index: 2;
+      inset: -10px;
+      border-radius: inherit;
+      background: radial-gradient(
+        ellipse at center,
+        rgba(220,160,95,0.12) 0%,
+        rgba(44,15,0,0.8) 65%,
+        transparent 100%
+      );
       pointer-events: none;
     }
     .timeline-img-caption {
-      position: absolute;
-      bottom: 28px; left: 50%;
-      transform: translateX(-50%);
-      color: #f7e6c4;
+      display: block;
+      text-align: center;
+      margin-top: 6px;
+      color: rgba(220,160,95,0.65);
       font-size: 10px;
       font-weight: 700;
-      z-index: 3;
-      letter-spacing: 0.06em;
-      white-space: nowrap;
-      text-shadow: 0 1px 4px rgba(0,0,0,0.8);
-      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
-    /* Timeline item layout: side by side on desktop */
+    /* Timeline item layout: side by side with image right */
     .timeline-has-img {
       display: flex;
       align-items: flex-start;
-      gap: 24px;
+      gap: 8px;
+    }
+    .timeline-content { flex: 1; min-width: 0; }
+
+    /* Mobile responsiveness for blob images */
+    @media (max-width: 600px) {
+      .timeline-img-wrap { width: 140px; height: 148px; }
+      .timeline-has-img { gap: 4px; }
     }
 
     #mainNavbar {
@@ -1880,8 +1892,8 @@
     <section class="intro-hero">
       <div class="intro-hero-content">
         <div class="intro-hero-badge" data-vi="DI TÍCH LỊCH SỬ CẤP QUỐC GIA" data-en="NATIONAL HISTORICAL MONUMENT">DI TÍCH LỊCH SỬ CẤP QUỐC GIA</div>
-        <h1 class="intro-hero-title" data-vi="Dinh Tỉnh Trưởng<br>Phú Thành" data-en="Phuoc Thanh<br>Governor's Mansion">Dinh Tỉnh Trưởng<br>Phú Thành</h1>
-        <p class="intro-hero-sub" data-vi="Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phú Thành." data-en="A witness to the nation's liberation struggle — marking the heroic years of Phuoc Thanh's people and armed forces.">Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phú Thành.</p>
+        <h1 class="intro-hero-title" data-vi="Dinh Tỉnh Trưởng<br>Phước Thành" data-en="Phuoc Thanh<br>Governor's Mansion">Dinh Tỉnh Trưởng<br>Phước Thành</h1>
+        <p class="intro-hero-sub" data-vi="Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phước Thành." data-en="A witness to the nation's liberation struggle — marking the heroic years of Phuoc Thanh's people and armed forces.">Chứng nhân lịch sử của cuộc đấu tranh giải phóng dân tộc — nơi ghi dấu những năm tháng hào hùng của quân và dân tỉnh Phước Thành.</p>
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
           <button class="hero-enter-btn" onclick="navigateToMap()">
             <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:#fff"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>
@@ -1923,11 +1935,11 @@
         <div class="intro-about-grid">
           <div class="about-text">
             <p class="section-label" data-vi="TỔNG QUAN" data-en="OVERVIEW">TỔNG QUAN</p>
-            <h2 class="section-title" data-vi="Di Tích Dinh Tỉnh Trưởng Phú Thành" data-en="Phuoc Thanh Governor's Mansion">Di Tích Dinh Tỉnh Trưởng Phú Thành</h2>
+            <h2 class="section-title" data-vi="Di Tích Dinh Tỉnh Trưởng Phước Thành" data-en="Phuoc Thanh Governor's Mansion">Di Tích Dinh Tỉnh Trưởng Phước Thành</h2>
             <div class="section-divider"></div>
-            <p data-vi="Dinh Tỉnh Trưởng Phước Thành (Phú Thành) là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960." data-en="Phuoc Thanh Governor's Mansion was the administrative headquarters of Phuoc Thanh Province — a provisional administrative unit that existed from 1959 to 1965 in Southern Vietnam. The building was constructed and completed around 1960.">Dinh Tỉnh Trưởng Phước Thành (Phú Thành) là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960.</p>
+            <p data-vi="Dinh Tỉnh Trưởng Phước Thành là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960." data-en="Phuoc Thanh Governor's Mansion was the administrative headquarters of Phuoc Thanh Province — a provisional administrative unit that existed from 1959 to 1965 in Southern Vietnam. The building was constructed and completed around 1960.">Dinh Tỉnh Trưởng Phước Thành là tòa nhà hành chính đầu não của tỉnh Phước Thành — một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Tòa nhà được khởi công và hoàn thành vào khoảng năm 1960.</p>
             <p data-vi="Đặc trưng của di tích là phong cách kiến trúc Pháp thuộc kết hợp vật liệu và chi tiết trang trí Nam Bộ. Đứng từ xa, tòa nhà nổi bật với hệ cột trụ sơn cam màu gạch, ngọn tháp nhọn cổ kính và các bức bích họa vẽ tay đồ sộ tại hai cánh nhà tả – hữu." data-en="The monument features French colonial architecture combined with Southern Vietnamese decorative materials and details. The building stands out with brick-colored columns, a classic pointed tower, and massive hand-painted murals on both wings.">Đặc trưng của di tích là phong cách kiến trúc Pháp thuộc kết hợp vật liệu và chi tiết trang trí Nam Bộ. Nổi bật với hệ cột trụ sơn cam màu gạch, ngọn tháp nhọn cổ kính và các bức bích họa vẽ tay tại hai cánh nhà.</p>
-            <p data-vi="Với những giá trị lịch sử và kiến trúc nổi bật, Dinh Tỉnh Trưởng Phú Thành là công trình xứng đáng được bảo tồn và phát huy giá trị như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương." data-en="With its outstanding historical and architectural values, the Phuoc Thanh Governor's Mansion deserves to be preserved and promoted as an important cultural heritage of the Phu Giao — Binh Duong region.">Với những giá trị lịch sử và kiến trúc nổi bật, đây là công trình xứng đáng được bảo tồn như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương.</p>
+            <p data-vi="Với những giá trị lịch sử và kiến trúc nổi bật, Dinh Tỉnh Trưởng Phước Thành là công trình xứng đáng được bảo tồn và phát huy giá trị như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương." data-en="With its outstanding historical and architectural values, the Phuoc Thanh Governor's Mansion deserves to be preserved and promoted as an important cultural heritage of the Phu Giao — Binh Duong region.">Với những giá trị lịch sử và kiến trúc nổi bật, đây là công trình xứng đáng được bảo tồn như một di sản văn hóa quan trọng của vùng đất Phú Giáo — Bình Dương.</p>
             <div class="about-stats">
               <div class="about-stat"><span class="about-stat-num">1960</span><span class="about-stat-label" data-vi="Năm xây dựng" data-en="Year built">Năm xây dựng</span></div>
               <div class="about-stat"><span class="about-stat-num">5</span><span class="about-stat-label" data-vi="Phòng trưng bày" data-en="Exhibition rooms">Phòng trưng bày</span></div>
@@ -1936,7 +1948,7 @@
           </div>
           <div class="about-img-wrap">
             <div class="about-img-blur-frame">
-              <img src="anhdinh/dinhtinhtruong.png" alt="Dinh Tỉnh Trưởng Phú Thành" class="about-img-main">
+              <img src="anhdinh/dinhtinhtruong.png" alt="Dinh Tỉnh Trưởng Phước Thành" class="about-img-main">
               <div class="about-img-blur-mask"></div>
             </div>
             <div class="about-img-badge">
@@ -1962,8 +1974,10 @@
               <div class="timeline-title" data-vi="Thành lập tỉnh Phước Thành & Xây dựng Dinh" data-en="Establishment of Phuoc Thanh Province & Construction">Thành lập tỉnh Phước Thành & Xây dựng Dinh</div>
               <div class="timeline-has-img">
                 <div class="timeline-desc" data-vi="Ngày 22/10/1959, tỉnh Phước Thành được thành lập theo sắc lệnh của chính quyền Sài Gòn. Dinh Tỉnh Trưởng được xây dựng ngay sau đó để phục vụ nhu cầu hành chính của tỉnh mới." data-en="On October 22, 1959, Phuoc Thanh Province was established by Saigon government decree. The Governor's Mansion was built shortly after to serve the administrative needs of the new province.">Ngày 22/10/1959, tỉnh Phước Thành được thành lập theo sắc lệnh của chính quyền Sài Gòn. Dinh Tỉnh Trưởng được xây dựng ngay sau đó để phục vụ nhu cầu hành chính của tỉnh mới.</div>
-                <div class="timeline-img-wrap">
-                  <img src="anhdinh/dinh-tinh-truong-phuoc-thanh-diem-den-du-lich-thu-vi-tren-vung-que-phu-giao-3-1655399170.jpg" alt="Dinh Tỉnh Trưởng thập niên 1960" loading="lazy">
+                <div class="timeline-img-outer">
+                  <div class="timeline-img-wrap">
+                    <img src="anhdinh/dinh-tinh-truong-phuoc-thanh-diem-den-du-lich-thu-vi-tren-vung-que-phu-giao-3-1655399170.jpg" alt="Dinh Tỉnh Trưởng thập niên 1960" loading="lazy">
+                  </div>
                   <span class="timeline-img-caption" data-vi="Những năm 1960" data-en="The 1960s">Những năm 1960</span>
                 </div>
               </div>
@@ -1984,8 +1998,10 @@
               <div class="timeline-title" data-vi="Giải phóng hoàn toàn" data-en="Complete Liberation">Giải phóng hoàn toàn</div>
               <div class="timeline-has-img">
                 <div class="timeline-desc" data-vi="Sau ngày 30/4/1975, toàn bộ khu vực tỉnh Phước Thành được giải phóng hoàn toàn. Dinh Tỉnh Trưởng được tiếp quản và dần trở thành biểu tượng lịch sử của vùng đất Phú Giáo." data-en="After April 30, 1975, the entire Phuoc Thanh Province area was completely liberated. The Governor's Mansion was taken over and gradually became a historical symbol of the Phu Giao region.">Sau ngày 30/4/1975, toàn bộ khu vực được giải phóng hoàn toàn. Dinh trở thành biểu tượng lịch sử của vùng đất Phú Giáo.</div>
-                <div class="timeline-img-wrap">
-                  <img src="anhdinh/0967C44491EF8086B5772E2A2DD1C1C7.jpg" alt="Dinh Tỉnh Trưởng sau giải phóng" loading="lazy">
+                <div class="timeline-img-outer">
+                  <div class="timeline-img-wrap">
+                    <img src="anhdinh/0967C44491EF8086B5772E2A2DD1C1C7.jpg" alt="Dinh Tỉnh Trưởng sau giải phóng" loading="lazy">
+                  </div>
                   <span class="timeline-img-caption" data-vi="Sau giải phóng" data-en="Post-liberation">Sau giải phóng</span>
                 </div>
               </div>
@@ -1997,9 +2013,11 @@
               <div class="timeline-year">Hiện nay</div>
               <div class="timeline-title" data-vi="Bảo tồn & Số hóa di tích" data-en="Preservation & Digital Heritage">Bảo tồn & Số hóa di tích</div>
               <div class="timeline-has-img">
-                <div class="timeline-desc" data-vi="Dinh Tỉnh Trưởng Phú Thành được các cơ quan chức năng và các tổ chức văn hóa quan tâm bảo tồn. Dự án số hóa di tích được triển khai nhằm lưu giữ và phát huy giá trị lịch sử cho các thế hệ tương lai." data-en="The Phuoc Thanh Governor's Mansion is being preserved by relevant authorities and cultural organizations. A digital heritage project has been launched to preserve and promote its historical values for future generations.">Dinh được quan tâm bảo tồn bởi các cơ quan văn hóa. Dự án số hóa di tích được triển khai nhằm lưu giữ giá trị lịch sử cho các thế hệ tương lai.</div>
-                <div class="timeline-img-wrap">
-                  <img src="anhdinh/dinhtinhtruong.png" alt="Dinh Tỉnh Trưởng ngày nay" loading="lazy">
+                <div class="timeline-desc" data-vi="Dinh Tỉnh Trưởng Phước Thành được các cơ quan chức năng và các tổ chức văn hóa quan tâm bảo tồn. Dự án số hóa di tích được triển khai nhằm lưu giữ và phát huy giá trị lịch sử cho các thế hệ tương lai." data-en="The Phuoc Thanh Governor's Mansion is being preserved by relevant authorities and cultural organizations. A digital heritage project has been launched to preserve and promote its historical values for future generations.">Dinh được quan tâm bảo tồn bởi các cơ quan văn hóa. Dự án số hóa di tích được triển khai nhằm lưu giữ giá trị lịch sử cho các thế hệ tương lai.</div>
+                <div class="timeline-img-outer">
+                  <div class="timeline-img-wrap">
+                    <img src="anhdinh/dinhtinhtruong.png" alt="Dinh Tỉnh Trưởng ngày nay" loading="lazy">
+                  </div>
                   <span class="timeline-img-caption" data-vi="Ngày nay" data-en="Present day">Ngày nay</span>
                 </div>
               </div>
@@ -2021,7 +2039,7 @@
             <svg id="introAudioPauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </div>
           <div class="audio-card-info">
-            <div class="audio-card-title" data-vi="Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phú Thành" data-en="Overview commentary on Phuoc Thanh Governor's Mansion">Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phú Thành</div>
+            <div class="audio-card-title" data-vi="Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phước Thành" data-en="Overview commentary on Phuoc Thanh Governor's Mansion">Thuyết minh tổng quan về Dinh Tỉnh Trưởng Phước Thành</div>
             <div class="audio-card-sub" data-vi="Đội hình Chuyên Nâng cao Kỹ năng số — Chiến dịch TNS Kinh tế 2026" data-en="Digital Skills Enhancement Team — Economic Volunteer Campaign 2026">Đội hình Chuyên Nâng cao Kỹ năng số — Chiến dịch TNS Kinh tế 2026</div>
             <div class="audio-bar-track" id="introAudioTrack" onclick="introAudioSeek(event)">
               <div class="audio-bar-fill" id="introAudioFill"></div>
@@ -2074,7 +2092,7 @@
 
     <!-- Footer -->
     <footer class="intro-footer">
-      <span data-vi="© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phú Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026" data-en="© 2026 Digitizing Phuoc Thanh Governor's Mansion · Digital Skills Enhancement Team · Economic Volunteer Campaign 2026">© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phú Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026</span>
+      <span data-vi="© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phước Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026" data-en="© 2026 Digitizing Phuoc Thanh Governor's Mansion · Digital Skills Enhancement Team · Economic Volunteer Campaign 2026">© 2026 Số hoá di tích Dinh Tỉnh Trưởng Phước Thành · Đội hình Chuyên Nâng cao Kỹ năng số · Chiến dịch tình nguyện sinh viên Kinh tế 2026</span>
     </footer>
   </div>
 
@@ -2084,7 +2102,7 @@
     <div class="halftone-right"></div>
     <div class="splash-container">
       <div class="splash-title-sub">DI TÍCH LỊCH SỬ</div>
-      <div class="splash-title-main">DINH TỈNH TRƯỞNG PHÚ THÀNH</div>
+      <div class="splash-title-main">DINH TỈNH TRƯỞNG PHƯỚC THÀNH</div>
       <button class="splash-btn" onclick="launchApp()">BẮT ĐẦU KHÁM PHÁ</button>
     </div>
   </div>
@@ -2094,7 +2112,7 @@
 
     <!-- Top Header Capsule (Dynamic title) -->
     <div class="header-capsule">
-      <h2 id="appTitle">Di Tích Lịch Sử Dinh Tỉnh Trưởng Phú Thành</h2>
+      <h2 id="appTitle">Di Tích Lịch Sử Dinh Tỉnh Trưởng Phước Thành</h2>
     </div>
 
     <!-- Left Menu Trigger & Actions (Only Back Button remains) -->
@@ -2103,6 +2121,11 @@
         <!-- Nút quay lại dinh -->
         <button id="backBtn" class="back-btn" onclick="navigateBackToBuilding()" title="Quay lại dinh">
           ←
+        </button>
+        <!-- Nút xem thông tin phòng -->
+        <button id="roomInfoBtn" class="action-tab-btn" onclick="showRoomInfo()" title="Thông tin phòng" style="display:none; background-color:#502108; border-color:rgba(220,160,95,0.4); gap: 6px; padding: 0 14px; height: 48px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);">
+          <svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:#ffd8a8;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <span data-vi="Thông tin phòng" data-en="Room Info">Thông tin phòng</span>
         </button>
       </div>
     </div>
@@ -2174,7 +2197,7 @@
 
     <!-- Copyright Footer text -->
     <div class="footer-note">
-      <span style="font-weight:bold;">©</span> Công trình số hoá địa chỉ đỏ Di tích Dinh tỉnh trưởng Phú Thành - Được
+      <span style="font-weight:bold;">©</span> Công trình số hoá địa chỉ đỏ Di tích Dinh Tỉnh Trưởng Phước Thành - Được
       thực hiện bởi Đội hình Chuyên Nâng cao Kỹ năng số Chiến dịch tình nguyện sinh viên Kinh tế 2026
     </div>
   </div>

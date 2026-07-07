@@ -154,7 +154,7 @@ function createArtifactPin() {
         <svg width="${w}" height="${h}" viewBox="0 0 34 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.35)); display: block;">
           <path d="M17 0C7.6 0 0 7.6 0 17C0 28.8 17 44 17 44C17 44 34 28.8 34 17C34 7.6 26.4 0 17 0Z" fill="#bd3107"/>
           <circle cx="17" cy="17" r="7" fill="#FFFFFF"/>
-          <text x="17" y="21.5" text-anchor="middle" font-family="'Be Vietnam Pro',sans-serif" font-weight="900" font-size="11" fill="#bd3107">!</text>
+          <text x="17" y="21.5" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-weight="900" font-size="11" fill="#bd3107">!</text>
         </svg>
       </div>
     `,
@@ -169,13 +169,24 @@ function showBuildingOverview() {
   activeRoomId = null;
 
   // Set title capsule
-  document.getElementById("appTitle").textContent = "Di Tích Lịch Sử Dinh Tỉnh Trưởng Phú Thành";
+  const appTitle = document.getElementById("appTitle");
+  if (appTitle) appTitle.textContent = "Di Tích Lịch Sử Dinh Tỉnh Trưởng Phước Thành";
 
-  // Hide room controls
-  document.getElementById("backBtn").style.display = "none";
-  document.getElementById("sliderPrevBtn").style.display = "none";
-  document.getElementById("sliderNextBtn").style.display = "none";
-  document.querySelector(".custom-zoom-control").style.display = "none";
+  // Hide room controls and info button
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) backBtn.style.display = "none";
+  
+  const sliderPrevBtn = document.getElementById("sliderPrevBtn");
+  if (sliderPrevBtn) sliderPrevBtn.style.display = "none";
+  
+  const sliderNextBtn = document.getElementById("sliderNextBtn");
+  if (sliderNextBtn) sliderNextBtn.style.display = "none";
+  
+  const roomInfoBtn = document.getElementById("roomInfoBtn");
+  if (roomInfoBtn) roomInfoBtn.style.display = "none";
+  
+  const zoomCtrl = document.querySelector(".custom-zoom-control");
+  if (zoomCtrl) zoomCtrl.style.display = "none";
 
   // Clear any Leaflet state
   if (activeOverlayImage) {
@@ -185,19 +196,30 @@ function showBuildingOverview() {
   clearMarkers();
 
   // Hide Leaflet #map, show 3D model-viewer + room panel
-  document.getElementById("map").style.display = "none";
-  document.getElementById("dinhModel").style.display = "block";
-  document.getElementById("roomPanel").style.display = "block";
+  const mapEl = document.getElementById("map");
+  if (mapEl) mapEl.style.display = "none";
+  
+  const dinhModel = document.getElementById("dinhModel");
+  if (dinhModel) dinhModel.style.display = "block";
+  
+  const roomPanel = document.getElementById("roomPanel");
+  if (roomPanel) roomPanel.style.display = "block";
 }
 
 // Load Room Display Mode
 function loadRoomScreen(roomId) {
+  // Auto close popups/drawers when opening a room
+  hideArtifactDrawer();
+  closeGlobalModal();
+
   const room = ROOM_DATABASE[roomId];
   if (!room) return;
 
   if (!room.available) {
-    document.getElementById("updatingLabel").textContent = room.name;
-    document.getElementById("updatingDialog").style.display = "flex";
+    const updatingLabel = document.getElementById("updatingLabel");
+    if (updatingLabel) updatingLabel.textContent = room.name;
+    const updatingDialog = document.getElementById("updatingDialog");
+    if (updatingDialog) updatingDialog.style.display = "flex";
     return;
   }
 
@@ -207,16 +229,28 @@ function loadRoomScreen(roomId) {
 
   // Update capsule title
   const titleNumberStr = room.name.replace("Phòng trưng bày", "Phòng trưng bày số");
-  document.getElementById("appTitle").textContent = `${titleNumberStr} - ${room.subtitle}`;
+  const appTitle = document.getElementById("appTitle");
+  if (appTitle) appTitle.textContent = `${titleNumberStr} - ${room.subtitle}`;
 
-  // Show back button, show zoom controls
-  document.getElementById("backBtn").style.display = "flex";
-  document.querySelector(".custom-zoom-control").style.display = "flex";
+  // Show back button, show zoom controls, show room info button
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) backBtn.style.display = "flex";
+  
+  const roomInfoBtn = document.getElementById("roomInfoBtn");
+  if (roomInfoBtn) roomInfoBtn.style.display = "inline-flex";
+  
+  const zoomCtrl = document.querySelector(".custom-zoom-control");
+  if (zoomCtrl) zoomCtrl.style.display = "flex";
 
   // Hide 3D model, hide room panel, show Leaflet map
-  document.getElementById("dinhModel").style.display = "none";
-  document.getElementById("roomPanel").style.display = "none";
-  document.getElementById("map").style.display = "block";
+  const dinhModel = document.getElementById("dinhModel");
+  if (dinhModel) dinhModel.style.display = "none";
+  
+  const roomPanel = document.getElementById("roomPanel");
+  if (roomPanel) roomPanel.style.display = "none";
+  
+  const mapEl = document.getElementById("map");
+  if (mapEl) mapEl.style.display = "block";
 
   // Invalidate Leaflet size before rendering
   setTimeout(() => {
@@ -298,16 +332,22 @@ function slideRoomView(direction) {
 function navigateBackToBuilding() {
   hideArtifactDrawer();
 
-  // Hide Leaflet room view
+  // Hide Leaflet room view and room controls
   document.getElementById("map").style.display = "none";
   document.getElementById("sliderPrevBtn").style.display = "none";
   document.getElementById("sliderNextBtn").style.display = "none";
+  document.getElementById("roomInfoBtn").style.display = "none";
 
   showBuildingOverview();
 }
-
 function clearMarkers() {
-  activeLeafletMarkers.forEach(marker => map.removeLayer(marker));
+  activeLeafletMarkers.forEach(marker => {
+    try {
+      if (marker) map.removeLayer(marker);
+    } catch (e) {
+      console.warn("Failed to remove marker from map:", e);
+    }
+  });
   activeLeafletMarkers = [];
 }
 
@@ -357,6 +397,56 @@ function showArtifactDrawer(artifact) {
 
   // Reset tab to Info
   activateTab("info");
+}
+
+// Hiển thị thông tin tổng quan giới thiệu của phòng trong popup drawer
+function showRoomInfo() {
+  const room = ROOM_DATABASE[activeRoomId];
+  if (!room) return;
+
+  currentArtifact = null; // Set to null because we are introducing the room itself
+
+  // Set titles
+  document.getElementById("drawerRoomName").textContent = room.name;
+  document.getElementById("drawerRoomSubtitle").textContent = room.subtitle;
+  document.getElementById("drawerArtifactName").textContent = "GIỚI THIỆU PHÒNG TRƯNG BÀY";
+
+  // Description
+  document.getElementById("artifactTextDesc").innerHTML = room.description || "<p style='font-style: italic; color:#8c7365;'>Thông tin chi tiết của phòng này đang được cập nhật...</p>";
+
+  // Load Audio timeline/narration if available
+  setupAudioPlayer(room.audio);
+
+  // Setup room images inside Images Tab
+  const grid = document.getElementById("artifactImagesGrid");
+  grid.innerHTML = "";
+  if (room.views && room.views.length) {
+    room.views.forEach((v, index) => {
+      const itemEl = document.createElement("div");
+      itemEl.className = "mosaic-item";
+      
+      const viewsJson = JSON.stringify(room.views).replace(/"/g, "'");
+      itemEl.setAttribute("onclick", `showLightbox(${viewsJson}, ${index})`);
+      
+      const imgEl = document.createElement("img");
+      imgEl.src = v;
+      imgEl.alt = `${room.name} view ${index + 1}`;
+      imgEl.loading = "lazy";
+      
+      itemEl.appendChild(imgEl);
+      grid.appendChild(itemEl);
+    });
+  } else {
+    grid.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #8c7365; font-size: 13.5px; padding: 30px; font-style: italic;">Chưa có hình ảnh phòng.</div>`;
+  }
+
+  // Activate default info tab and slide open panel
+  activateTab("info");
+  document.getElementById("drawerPanel").classList.add("open");
+
+  if (window.innerWidth <= 768) {
+    document.getElementById("mobileDrawerBackdrop").style.display = "block";
+  }
 }
 
 function hideArtifactDrawer() {
@@ -601,12 +691,12 @@ document.addEventListener("mouseup", () => {
 
 // ===== MENU POPUPS ACTIONS =====
 function viewSiteInfo() {
-  const title = "Thông Tin Di Tích Dinh Tỉnh Trưởng Phú Thành";
+  const title = "Thông Tin Di Tích Dinh Tỉnh Trưởng Phước Thành";
   const body = `
     <div style="font-family: inherit; font-size: 15px; color: #4e3524;">
       <h3 style="color:#bd3107; font-family:'Playfair Display',serif; margin-bottom:12px;">1. Lịch sử hình thành</h3>
       <p style="margin-bottom:14px; text-align:justify; line-height:1.7;">
-        <b>Dinh Tỉnh Trưởng Phước Thành</b> (Phú Thành) là tòa nhà hành chính đầu não của tỉnh Phước Thành – một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Toà nhà được khởi công và hoàn thành vào khoảng năm 1960.
+        <b>Dinh Tỉnh Trưởng Phước Thành</b> là tòa nhà hành chính đầu não của tỉnh Phước Thành – một đơn vị hành chính lâm thời tồn tại từ năm 1959 đến năm 1965 tại miền Nam Việt Nam. Toà nhà được khởi công và hoàn thành vào khoảng năm 1960.
       </p>
       
       <h3 style="color:#bd3107; font-family:'Playfair Display',serif; margin-bottom:12px;">2. Kiến trúc độc đáo</h3>
@@ -616,7 +706,7 @@ function viewSiteInfo() {
       
       <h3 style="color:#bd3107; font-family:'Playfair Display',serif; margin-bottom:12px;">3. Ý nghĩa lịch sử</h3>
       <p style="text-align:justify; line-height:1.7;">
-        Nơi đây từng ghi dấu những trận đánh hiển hách của quân và dân Phước Thành năm xưa, tiêu biểu là chiến thắng Phước Thành ngày 18/9/1961 chấn động địa cầu. Ngày nay, Dinh Tỉnh Trưởng Phú Thành là địa chỉ đỏ giáo dục lòng yêu nước và là di sản lịch sử quan trọng cần bảo tồn.
+        Nơi đây từng ghi dấu những trận đánh hiển hách của quân và dân Phước Thành năm xưa, tiêu biểu là chiến thắng Phước Thành ngày 18/9/1961 chấn động địa cầu. Ngày nay, Dinh Tỉnh Trưởng Phước Thành là địa chỉ đỏ giáo dục lòng yêu nước và là di sản lịch sử quan trọng cần bảo tồn.
       </p>
     </div>
   `;
@@ -625,7 +715,7 @@ function viewSiteInfo() {
 
 // Hình ảnh Dinh chứa toàn bộ ảnh của cả Dinh (mặt ngoài + các phòng trong)
 function viewBuildingImages() {
-  const title = "Hình Ảnh Dinh Tỉnh Trưởng Phú Thành";
+  const title = "Hình Ảnh Dinh Tỉnh Trưởng Phước Thành";
   const body = `
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
       ${DINH_GALLERY_IMAGES.map((src, i) => `
@@ -726,7 +816,7 @@ function viewProjectDetails() {
   const body = `
     <div style="font-family: inherit; font-size: 15px; color: #4e3524; line-height:1.7;">
       <p style="margin-bottom:14px; text-align:justify;">
-        Dự án <b>"Số hoá địa chỉ đỏ di tích kiến trúc nghệ thuật Dinh Tỉnh Trưởng Phú Thành"</b> nằm trong khuôn khổ chương trình chuyển đổi số nhằm lưu trữ, bảo tồn và quảng bá di tích lịch sử đến quần chúng nhân dân.
+        Dự án <b>"Số hoá địa chỉ đỏ di tích kiến trúc nghệ thuật Dinh Tỉnh Trưởng Phước Thành"</b> nằm trong khuôn khổ chương trình chuyển đổi số nhằm lưu trữ, bảo tồn và quảng bá di tích lịch sử đến quần chúng nhân dân.
       </p>
       
       <div style="background-color:rgba(189, 49, 7, 0.05); padding:16px; border-left:4px solid #bd3107; border-radius:4px; margin-bottom:16px;">
@@ -837,6 +927,10 @@ function toggleMobileNav() {
 
 // ===== PAGE NAVIGATION =====
 function navigateToIntro() {
+  // Auto close popups/drawers
+  hideArtifactDrawer();
+  closeGlobalModal();
+
   // Ẩn map, dừng audio
   const appEl = document.getElementById('appContainer');
   appEl.classList.remove('active');
@@ -855,6 +949,15 @@ function navigateToIntro() {
 }
 
 function navigateToMap() {
+  // Reset scroll position to top to prevent vertical offset shifts
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Auto close popups/drawers
+  hideArtifactDrawer();
+  closeGlobalModal();
+
   // Ẩn intro
   document.getElementById('introPage').classList.remove('visible');
   document.getElementById('navLinks').classList.remove('mobile-open');
@@ -865,11 +968,20 @@ function navigateToMap() {
 
   // Hiện map
   const appEl = document.getElementById('appContainer');
-  appEl.style.display = 'block';
-  requestAnimationFrame(() => {
+  if (appEl) {
+    appEl.style.display = 'block';
     appEl.classList.add('active');
-    map.invalidateSize();
-    if (!activeOverlayImage) showBuildingOverview();
+  }
+  
+  // Luôn quay về sơ đồ 3d dinh chính đồng bộ ngay lập tức để tránh độ trễ layout
+  showBuildingOverview();
+
+  requestAnimationFrame(() => {
+    try {
+      map.invalidateSize();
+    } catch (e) {
+      console.warn("Failed to invalidate map size:", e);
+    }
   });
 
   document.getElementById('navMap').classList.add('active');
@@ -915,4 +1027,54 @@ map.on('click', function (e) {
     console.log(`%c[TOẠ ĐỘ TRONG PHÒNG] => pixel: x: ${pixelX}, y: ${pixelY} | Cấu hình: xRatio: ${xRatio}, yRatio: ${yRatio}`, "color: #bd3107; font-weight: bold; font-size: 12px;");
   }
 });
+
+// Gắn sự kiện click-to-log để hỗ trợ đo đạc toạ độ 3D thực tế
+const modelViewerEl = document.getElementById('dinhModel');
+if (modelViewerEl) {
+  modelViewerEl.addEventListener('click', (event) => {
+    const rect = modelViewerEl.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const hit = modelViewerEl.positionAndNormalFromPoint(x, y);
+    if (hit) {
+      console.log(`%c[3D CLICK HIT] => Position: ${hit.position.x.toFixed(4)} ${hit.position.y.toFixed(4)} ${hit.position.z.toFixed(4)} | Normal: ${hit.normal.x.toFixed(4)} ${hit.normal.y.toFixed(4)} ${hit.normal.z.toFixed(4)}`, "color: #2e7d32; font-weight: bold; font-size: 13px;");
+    }
+  });
+
+  // Tải Three.js Plane để che đậy mặt sau của Dinh (khớp hoàn toàn với kích thước thực tế của GLB)
+  modelViewerEl.addEventListener('load', () => {
+    try {
+      // Tìm Symbol scene của model-viewer để can thiệp trực tiếp vào Three.js scene graph
+      const sceneSymbol = Object.getOwnPropertySymbols(modelViewerEl).find(s => s.description === 'scene');
+      const scene = sceneSymbol ? modelViewerEl[sceneSymbol] : null;
+      
+      if (!scene) {
+        console.warn("[THREE.JS] Không tìm thấy Three.js scene trên model-viewer.");
+        return;
+      }
+      
+      // Tạo một mặt phẳng có chất liệu Standard có phản xạ ánh sáng tự nhiên trùng khớp với tường dinh
+      const geometry = new THREE.PlaneGeometry(1.85, 1.3);
+      const material = new THREE.MeshStandardMaterial({
+        color: 0xead9b6, // Tông màu be trầm trùng với màu tường dinh mặt ngoài
+        roughness: 0.85,
+        metalness: 0.05,
+        side: THREE.DoubleSide
+      });
+      const backWall = new THREE.Mesh(geometry, material);
+      
+      // Đặt tên
+      backWall.name = "backWallCover";
+      
+      // Định vị sát cạnh sau cùng Z = -0.68 và dịch trọng tâm Y để che kín khoang rỗng bên trong
+      backWall.position.set(0, -0.08, -0.675);
+      backWall.rotation.y = Math.PI; // Quay mặt phẳng về phía sau
+      
+      scene.add(backWall);
+      console.log("%c[THREE.JS] Đã tạo thành công bức tường 3D che phủ phẳng mặt sau dinh.", "color: #0288d1; font-weight: bold;");
+    } catch (e) {
+      console.error("[THREE.JS Error] Không thể chèn mesh che phủ:", e);
+    }
+  });
+}
 
