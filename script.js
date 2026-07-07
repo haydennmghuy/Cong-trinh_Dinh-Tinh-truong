@@ -193,7 +193,9 @@ const ROOM_DATABASE = {
           "anhphong5/anhhienvat5/anhhienvat5.41.JPG",
           "anhphong5/anhhienvat5/anhhienvat5.42.JPG",
           "anhphong5/anhhienvat5/anhhienvat5.43.JPG",
-          "anhphong5/anhhienvat5/anhhienvat5.44.JPG"
+          "anhphong5/anhhienvat5/anhhienvat5.44.JPG",
+          "anhphong5/anhhienvat5/anhhienvat5.50.JPG",
+          "anhphong5/anhhienvat5/anhhienvat5.51.JPG"
         ]
       },
       {
