@@ -64,7 +64,7 @@ const ROOM_DATABASE = {
 
 // Main interactive Dinh image dimensions (1200x900)
 const DIATICS_MAP = {
-  src: "dinhtinhtruong.png",
+  src: "anhdinh/dinhtinhtruong.png",
   width: 1210,
   height: 864,
   roomPins: [
@@ -76,9 +76,11 @@ const DIATICS_MAP = {
   ]
 };
 
-// Global Gallery of the Dinh (Hình ảnh Dinh - chứa toàn bộ ảnh của cả Dinh)
+// Global Gallery of the Dinh
 const DINH_GALLERY_IMAGES = [
-  "dinhtinhtruong.png",
+  "anhdinh/dinhtinhtruong.png",
+  "anhdinh/dinh-tinh-truong-phuoc-thanh-diem-den-du-lich-thu-vi-tren-vung-que-phu-giao-3-1655399170.jpg",
+  "anhdinh/0967C44491EF8086B5772E2A2DD1C1C7.jpg",
   "anhphong1/anhtoanphong/anhtoanphong1.1.png"
 ];
 
@@ -161,75 +163,31 @@ function createArtifactPin() {
   });
 }
 
-// Load Building overview map overlay
+// ===== BUILDING OVERVIEW: Show 3D model + room panel =====
 function showBuildingOverview() {
   currentViewMode = "building";
   activeRoomId = null;
 
-  // Set title in the capsule
+  // Set title capsule
   document.getElementById("appTitle").textContent = "Di Tích Lịch Sử Dinh Tỉnh Trưởng Phú Thành";
 
-  // Restore vertical actions labels to Dinh view
-  const isMobile = window.innerWidth <= 768;
-  document.getElementById("menuTextInfo").textContent = isMobile ? "THÔNG TIN" : "THÔNG TIN DINH";
-  document.getElementById("menuTextImages").textContent = isMobile ? "HÌNH ẢNH" : "HÌNH ẢNH DINH";
-  const projBtn = document.getElementById("menuTextProject");
-  if (projBtn) {
-    projBtn.textContent = isMobile ? "DỰ ÁN" : "THÔNG TIN DỰ ÁN";
-  }
-
-  // Hide room sliders and back indicator button
+  // Hide room controls
   document.getElementById("backBtn").style.display = "none";
   document.getElementById("sliderPrevBtn").style.display = "none";
   document.getElementById("sliderNextBtn").style.display = "none";
+  document.querySelector(".custom-zoom-control").style.display = "none";
 
-  // Clear previous layers/markers
+  // Clear any Leaflet state
   if (activeOverlayImage) {
-    map.removeLayer(activeOverlayImage);
+    try { map.removeLayer(activeOverlayImage); } catch(e) {}
+    activeOverlayImage = null;
   }
   clearMarkers();
 
-  currentViewWidth = DIATICS_MAP.width;
-  currentViewHeight = DIATICS_MAP.height;
-
-  // Create image overlay
-  const bounds = [[0, 0], [DIATICS_MAP.height, DIATICS_MAP.width]];
-  activeOverlayImage = L.imageOverlay(DIATICS_MAP.src, bounds).addTo(map);
-
-  map.setMaxBounds(null);
-  // Trên mobile: tự động fit ảnh vào khung màn hình, trên desktop: zoom đẹp hơn
-  if (window.innerWidth <= 768) {
-    map.fitBounds([[0, 0], [DIATICS_MAP.height, DIATICS_MAP.width]], { padding: [10, 10] });
-  } else {
-    map.setView([DIATICS_MAP.height / 2 - 45, DIATICS_MAP.width / 2], 1.1);
-  }
-  map.setMinZoom(-2);
-  map.setMaxZoom(5);
-  map.setMaxBounds(bounds);
-
-  // Add 5 room Markers
-  DIATICS_MAP.roomPins.forEach(pin => {
-    const rData = ROOM_DATABASE[pin.roomId];
-    // Coordinate conversion from layout pixel down-right
-    const lat = DIATICS_MAP.height - pin.y;
-    const lng = pin.x;
-
-    const pinMarker = L.marker([lat, lng], { icon: createCustomPin("#1d87e5", `P.${pin.roomId}`) }).addTo(map);
-
-    // Custom Leaflet Tooltip on Hover
-    pinMarker.bindTooltip(rData.name, {
-      permanent: false,
-      direction: 'top',
-      className: 'room-tooltip',
-      offset: [0, -42]
-    });
-
-    pinMarker.on('click', () => {
-      loadRoomScreen(pin.roomId);
-    });
-
-    activeLeafletMarkers.push(pinMarker);
-  });
+  // Hide Leaflet #map, show 3D model-viewer + room panel
+  document.getElementById("map").style.display = "none";
+  document.getElementById("dinhModel").style.display = "block";
+  document.getElementById("roomPanel").style.display = "block";
 }
 
 // Load Room Display Mode
@@ -238,7 +196,6 @@ function loadRoomScreen(roomId) {
   if (!room) return;
 
   if (!room.available) {
-    // Show updating popup and stop proceed
     document.getElementById("updatingLabel").textContent = room.name;
     document.getElementById("updatingDialog").style.display = "flex";
     return;
@@ -248,23 +205,24 @@ function loadRoomScreen(roomId) {
   currentViewMode = "room";
   currentViewIndex = 0;
 
-  // Update Capsule title header dynamically (Phòng trưng bày số 01 - Tên phòng)
+  // Update capsule title
   const titleNumberStr = room.name.replace("Phòng trưng bày", "Phòng trưng bày số");
   document.getElementById("appTitle").textContent = `${titleNumberStr} - ${room.subtitle}`;
 
-  // Update vertical actions labels to Room view
-  const isMobile = window.innerWidth <= 768;
-  document.getElementById("menuTextInfo").textContent = isMobile ? "THÔNG TIN" : "THÔNG TIN PHÒNG";
-  document.getElementById("menuTextImages").textContent = isMobile ? "HÌNH ẢNH" : "HÌNH ẢNH PHÒNG";
-  const projBtn = document.getElementById("menuTextProject");
-  if (projBtn) {
-    projBtn.textContent = isMobile ? "DỰ ÁN" : "THÔNG TIN DỰ ÁN";
-  }
-
-  // Draw indicator back button beside menu icon
+  // Show back button, show zoom controls
   document.getElementById("backBtn").style.display = "flex";
+  document.querySelector(".custom-zoom-control").style.display = "flex";
 
-  renderRoomView();
+  // Hide 3D model, hide room panel, show Leaflet map
+  document.getElementById("dinhModel").style.display = "none";
+  document.getElementById("roomPanel").style.display = "none";
+  document.getElementById("map").style.display = "block";
+
+  // Invalidate Leaflet size before rendering
+  setTimeout(() => {
+    map.invalidateSize();
+    renderRoomView();
+  }, 50);
 }
 
 // Render dynamic room view image & details
@@ -336,9 +294,15 @@ function slideRoomView(direction) {
   renderRoomView();
 }
 
-// Return to building overview map
+// Return to building overview (3D model)
 function navigateBackToBuilding() {
   hideArtifactDrawer();
+
+  // Hide Leaflet room view
+  document.getElementById("map").style.display = "none";
+  document.getElementById("sliderPrevBtn").style.display = "none";
+  document.getElementById("sliderNextBtn").style.display = "none";
+
   showBuildingOverview();
 }
 
@@ -927,18 +891,9 @@ function launchApp() {
 
 // ===== RESIZE HANDLER =====
 window.addEventListener('resize', () => {
-  if (document.getElementById('appContainer').classList.contains('active')) {
+  // Only invalidate Leaflet when in room mode (map is visible)
+  if (currentViewMode === 'room') {
     map.invalidateSize();
-  }
-  const isMobile = window.innerWidth <= 768;
-  const projectBtn = document.getElementById("menuTextProject");
-  if (projectBtn) projectBtn.textContent = isMobile ? "DỰ ÁN" : "THÔNG TIN DỰ ÁN";
-  if (currentViewMode === "building") {
-    document.getElementById("menuTextInfo").textContent = isMobile ? "THÔNG TIN" : "THÔNG TIN DINH";
-    document.getElementById("menuTextImages").textContent = isMobile ? "HÌNH ẢNH" : "HÌNH ẢNH DINH";
-  } else {
-    document.getElementById("menuTextInfo").textContent = isMobile ? "THÔNG TIN" : "THÔNG TIN PHÒNG";
-    document.getElementById("menuTextImages").textContent = isMobile ? "HÌNH ẢNH" : "HÌNH ẢNH PHÒNG";
   }
 });
 
