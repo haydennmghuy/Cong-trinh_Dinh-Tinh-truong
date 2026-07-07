@@ -1078,3 +1078,11 @@ if (modelViewerEl) {
   });
 }
 
+// Toggle room selection list on mobile
+function toggleRoomPanel() {
+  const panel = document.getElementById("roomPanel");
+  if (panel) {
+    panel.classList.toggle("collapsed-mobile");
+  }
+}
+
