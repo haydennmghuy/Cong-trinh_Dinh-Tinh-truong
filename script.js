@@ -1091,6 +1091,7 @@ if (modelViewerEl) {
       const position = geometry.attributes.position;
       const tempV = new THREE.Vector3();
 
+      let modifiedCount = 0;
       for (let i = 0; i < position.count; i++) {
         tempV.fromBufferAttribute(position, i);
 
@@ -1100,11 +1101,12 @@ if (modelViewerEl) {
         if (tempV.y < -0.186 && tempV.z < -0.473) {
           tempV.z = -0.473; // San phẳng về mặt phẳng local Z = -0.473
           position.setXYZ(i, tempV.x, tempV.y, tempV.z);
+          modifiedCount++;
         }
       }
       position.needsUpdate = true;
       geometry.computeVertexNormals();
-      console.log(`[THREE.JS] Đã san phẳng các đỉnh nhô ra phía sau.`);
+      console.log(`[THREE.JS] Đã san phẳng ${modifiedCount} đỉnh nhô ra phía sau.`);
 
       // === BƯỚC 2: TẠO BỨC TƯỜNG MỎNG CHE MẶT SAU (GIỐNG DINH TỈNH TRƯỞNG) ===
       geometry.computeBoundingBox();
