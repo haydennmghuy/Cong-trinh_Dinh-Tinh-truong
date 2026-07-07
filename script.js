@@ -339,6 +339,13 @@ const map = L.map('map', {
 const baseBounds = [[0, 0], [DIATICS_MAP.height, DIATICS_MAP.width]];
 map.fitBounds(baseBounds);
 
+// Close drawer when clicking outside (on map canvas)
+map.on('click', () => {
+  if (document.body.classList.contains("drawer-open")) {
+    hideArtifactDrawer();
+  }
+});
+
 // Custom markers using premium SVG icon styling matching the blue mockups
 function createCustomPin(color = "#1d87e5", text = "") {
   const isMobile = window.innerWidth <= 768;
@@ -613,6 +620,7 @@ function showArtifactDrawer(artifact) {
   // Open drawer
   const drawer = document.getElementById("drawerPanel");
   drawer.classList.add("open");
+  document.body.classList.add("drawer-open");
 
   // Hi\u1ec3n th\u1ecb backdrop tr\u00ean mobile
   if (window.innerWidth <= 768) {
@@ -673,6 +681,7 @@ function showRoomInfo() {
   // Activate default info tab and slide open panel
   activateTab("info");
   document.getElementById("drawerPanel").classList.add("open");
+  document.body.classList.add("drawer-open");
 
   if (window.innerWidth <= 768) {
     document.getElementById("mobileDrawerBackdrop").style.display = "block";
@@ -682,6 +691,7 @@ function showRoomInfo() {
 function hideArtifactDrawer() {
   const drawer = document.getElementById("drawerPanel");
   drawer.classList.remove("open");
+  document.body.classList.remove("drawer-open");
 
   // Ẩn backdrop tr\u00ean mobile
   document.getElementById("mobileDrawerBackdrop").style.display = "none";

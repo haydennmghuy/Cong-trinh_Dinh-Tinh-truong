@@ -840,6 +840,17 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
+    /* Disable pointer events on external buttons and markers when drawer is open */
+    body.drawer-open .back-btn,
+    body.drawer-open .room-arrow,
+    body.drawer-open .custom-zoom-control,
+    body.drawer-open .menu-btn,
+    body.drawer-open .action-tab-btn,
+    body.drawer-open #mainNavbar,
+    body.drawer-open .leaflet-marker-icon {
+      pointer-events: none !important;
+    }
+
     /* ============ MEDIA RESPONSIVE ============ */
     @media (max-width: 768px) {
 
@@ -2208,7 +2219,7 @@
 
   <!-- 3. EXPANDABLE DRAW PANEL -->
   <!-- Backdrop m\u1edd cho mobile -->
-  <div id="mobileDrawerBackdrop" onclick="hideArtifactDrawer()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:4999;"></div>
+  <div id="mobileDrawerBackdrop" onclick="hideArtifactDrawer()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:10999;"></div>
 
   <div id="drawerPanel">
     <div class="resize-handle" id="drawerDragWidthHandle"></div>
