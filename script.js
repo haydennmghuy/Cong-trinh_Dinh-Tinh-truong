@@ -1445,6 +1445,22 @@ if (modelViewerEl) {
       let mainMesh = null;
       modelRoot.traverse((child) => {
         if (child.isMesh && child.name !== "backWallCover") {
+          const geometry = child.geometry;
+          const position = geometry.attributes.position;
+          if (!position) return;
+
+          // Đảm bảo ma trận thế giới của mesh được cập nhật chính xác
+          child.updateMatrixWorld(true);
+
+          console.log(`[DEBUG COORDINATES] Mesh: ${child.name}`);
+          const tempV = new THREE.Vector3();
+          for (let i = 0; i < Math.min(5, position.count); i++) {
+            tempV.fromBufferAttribute(position, i);
+            const localX = tempV.x, localY = tempV.y, localZ = tempV.z;
+            child.localToWorld(tempV);
+            console.log(`  Vertex ${i} => Local: [${localX.toFixed(4)}, ${localY.toFixed(4)}, ${localZ.toFixed(4)}] | World: [${tempV.x.toFixed(4)}, ${tempV.y.toFixed(4)}, ${tempV.z.toFixed(4)}]`);
+          }
+
           mainMesh = child;
         }
       });
