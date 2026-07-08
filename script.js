@@ -1452,10 +1452,20 @@ if (modelViewerEl) {
           if (!position) return;
           
           const tempV = new THREE.Vector3();
-          let meshModifiedCount = 0;
+          let minWorldY = Infinity, maxWorldY = -Infinity;
+          let minWorldZ = Infinity, maxWorldZ = -Infinity;
 
-          // Đảm bảo ma trận thế giới của mesh được cập nhật chính xác
-          child.updateMatrixWorld(true);
+          for (let i = 0; i < position.count; i++) {
+            tempV.fromBufferAttribute(position, i);
+            child.localToWorld(tempV);
+            if (tempV.y < minWorldY) minWorldY = tempV.y;
+            if (tempV.y > maxWorldY) maxWorldY = tempV.y;
+            if (tempV.z < minWorldZ) minWorldZ = tempV.z;
+            if (tempV.z > maxWorldZ) maxWorldZ = tempV.z;
+          }
+          console.log(`[WORLD COORDINATES] Mesh: ${child.name || "unnamed"}, Y: [${minWorldY.toFixed(4)}, ${maxWorldY.toFixed(4)}], Z: [${minWorldZ.toFixed(4)}, ${maxWorldZ.toFixed(4)}]`);
+
+          let meshModifiedCount = 0;
 
           for (let i = 0; i < position.count; i++) {
             tempV.fromBufferAttribute(position, i);
