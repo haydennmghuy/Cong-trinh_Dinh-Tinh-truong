@@ -1421,61 +1421,86 @@ if (modelViewerEl) {
       
       if (!scene) return; // Tiếp tục chờ ở chu kỳ sau
 
-      // 2. Tìm mesh chính của mô hình Dinh bằng cách duyệt toàn bộ scene (bỏ qua bức tường che nếu đã dựng)
-      let mainMesh = null;
-      scene.traverse((child) => {
+      // 2. Tìm modelRoot là Group chứa mô hình 3D (không phải helper của model-viewer)
+      let modelRoot = null;
+      for (let i = 0; i < scene.children.length; i++) {
+        const child = scene.children[i];
+        if (child.type === 'Group' || child.isGroup) {
+          let hasMesh = false;
+          child.traverse(c => { if (c.isMesh) hasMesh = true; });
+          if (hasMesh) {
+            modelRoot = child;
+            break;
+          }
+        }
+      }
+
+      if (attempts % 5 === 0) {
+        console.log(`[THREE.JS DEBUG] Attempt: ${attempts}, modelRoot: ${modelRoot ? "Found" : "Null"}`);
+      }
+
+      if (!modelRoot) return; // Tiếp tục chờ model tải xong
+
+      // 3. Tiến hành xử lý mặt sau trên mọi Mesh thuộc modelRoot (lọc bỏ helper phẳng)
+      let modifiedTotal = 0;
+      let targetMesh = null; // Ta sẽ lấy Mesh lớn nhất làm mẫu để tính kích thước tường
+      let maxVertexCount = 0;
+
+      modelRoot.traverse((child) => {
         if (child.isMesh && child.name !== "backWallCover") {
-          mainMesh = child;
+          const geometry = child.geometry;
+          const position = geometry.attributes.position;
+          if (!position) return;
+          
+          const tempV = new THREE.Vector3();
+          let minY = Infinity, maxY = -Infinity;
+          let minZ = Infinity, maxZ = -Infinity;
+
+          for (let i = 0; i < position.count; i++) {
+            tempV.fromBufferAttribute(position, i);
+            if (tempV.y < minY) minY = tempV.y;
+            if (tempV.y > maxY) maxY = child.position.y + tempV.y; // Sử dụng toạ độ tương đối
+            if (tempV.z < minZ) minZ = tempV.z;
+            if (tempV.z > maxZ) maxZ = tempV.z;
+          }
+
+          console.log(`[THREE.JS] Mesh: ${child.name || "unnamed"}, Vertices: ${position.count}, Range Y: [${minY.toFixed(4)}, ${maxY.toFixed(4)}], Z: [${minZ.toFixed(4)}, ${maxZ.toFixed(4)}]`);
+
+          // Chỉ xử lý các mesh thực sự có chiều sâu (tránh các tấm phẳng 2D)
+          if (maxZ - minZ > 0.05) {
+            if (position.count > maxVertexCount) {
+              maxVertexCount = position.count;
+              targetMesh = child;
+            }
+
+            let meshModifiedCount = 0;
+            for (let i = 0; i < position.count; i++) {
+              tempV.fromBufferAttribute(position, i);
+              if (tempV.y < -0.186 && tempV.z < -0.473) {
+                tempV.z = -0.473;
+                position.setXYZ(i, tempV.x, tempV.y, tempV.z);
+                meshModifiedCount++;
+                modifiedTotal++;
+              }
+            }
+            if (meshModifiedCount > 0) {
+              position.needsUpdate = true;
+              geometry.computeVertexNormals();
+              console.log(`[THREE.JS] Đã san phẳng ${meshModifiedCount} đỉnh cho mesh ${child.name || "unnamed"}`);
+            }
+          }
         }
       });
 
-      if (attempts % 5 === 0) {
-        console.log(`[THREE.JS DEBUG] Attempt: ${attempts}, mainMesh: ${mainMesh ? "Found (" + mainMesh.name + ")" : "Null"}`);
-      }
+      // Nếu đã quét qua mà không tìm thấy mesh hợp lệ nào, tiếp tục chờ
+      if (!targetMesh) return;
 
-      if (!mainMesh) return; // Tiếp tục chờ
-
-      // Lấy group chứa mesh làm modelRoot
-      const modelRoot = mainMesh.parent || scene;
-
-      // Khi đã tìm thấy cả scene, modelRoot và mainMesh: dừng quét và tiến hành xử lý
+      // Khi đã xử lý xong: dừng vòng lặp quét
       clearInterval(initInterval);
-      console.log(`[THREE.JS] Đã tìm thấy mesh chính: ${mainMesh.name}. Bắt đầu xử lý mặt sau...`);
+      console.log(`[THREE.JS] Hoàn tất xử lý mặt sau. Tổng số đỉnh đã san phẳng: ${modifiedTotal}`);
 
-      // === BƯỚC 1: XÓA/SAN PHẲNG MÁI CHE MẶT SAU (GIỐNG DINH TỈNH TRƯỞNG) ===
-      const geometry = mainMesh.geometry;
-      const position = geometry.attributes.position;
-      const tempV = new THREE.Vector3();
-
-      let minY = Infinity, maxY = -Infinity;
-      let minZ = Infinity, maxZ = -Infinity;
-      for (let i = 0; i < position.count; i++) {
-        tempV.fromBufferAttribute(position, i);
-        if (tempV.y < minY) minY = tempV.y;
-        if (tempV.y > maxY) maxY = tempV.y;
-        if (tempV.z < minZ) minZ = tempV.z;
-        if (tempV.z > maxZ) maxZ = tempV.z;
-      }
-      console.log(`[THREE.JS COORDINATES] Range Y: [${minY.toFixed(4)}, ${maxY.toFixed(4)}], Z: [${minZ.toFixed(4)}, ${maxZ.toFixed(4)}]`);
-
-      let modifiedCount = 0;
-      for (let i = 0; i < position.count; i++) {
-        tempV.fromBufferAttribute(position, i);
-
-        // Điều kiện local tương đương:
-        // local Y < -0.186 (tương đương thế giới Y < 6.7)
-        // local Z < -0.473 (tương đương thế giới Z < -5.0)
-        if (tempV.y < -0.186 && tempV.z < -0.473) {
-          tempV.z = -0.473; // San phẳng về mặt phẳng local Z = -0.473
-          position.setXYZ(i, tempV.x, tempV.y, tempV.z);
-          modifiedCount++;
-        }
-      }
-      position.needsUpdate = true;
-      geometry.computeVertexNormals();
-      console.log(`[THREE.JS] Đã san phẳng ${modifiedCount} đỉnh nhô ra phía sau.`);
-
-      // === BƯỚC 2: TẠO BỨC TƯỜNG MỎNG CHE MẶT SAU (GIỐNG DINH TỈNH TRƯỞNG) ===
+      // === BƯỚC 2: TẠO BỨC TƯỜNG MỎNG CHE MẶT SAU (DỰA TRÊN KÍCH THƯỚC MESH CHÍNH) ===
+      const geometry = targetMesh.geometry;
       geometry.computeBoundingBox();
       const localSize = geometry.boundingBox.getSize(new THREE.Vector3());
 
