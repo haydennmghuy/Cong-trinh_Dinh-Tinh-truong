@@ -1421,56 +1421,27 @@ if (modelViewerEl) {
       
       if (!scene) return; // Tiếp tục chờ ở chu kỳ sau
 
-      // 2. Tìm modelRoot là Group chứa mô hình 3D (không phải helper của model-viewer)
-      let modelRoot = null;
-      for (let i = 0; i < scene.children.length; i++) {
-        const child = scene.children[i];
-        if (child.type === 'Group' || child.isGroup) {
-          let hasMesh = false;
-          child.traverse(c => { if (c.isMesh) hasMesh = true; });
-          if (hasMesh) {
-            modelRoot = child;
-            break;
-          }
-        }
-      }
-
-      if (attempts % 5 === 0) {
-        console.log(`[THREE.JS DEBUG] Attempt: ${attempts}, modelRoot: ${modelRoot ? "Found" : "Null"}`);
-      }
-
-      if (!modelRoot) return; // Tiếp tục chờ model tải xong
-
-      // 3. Tìm mesh chính của mô hình Dinh (Mesh_0)
+      // 2. Tìm mesh chính của mô hình Dinh (Mesh_0) bằng cách duyệt toàn bộ scene
       let mainMesh = null;
-      modelRoot.traverse((child) => {
-        if (child.isMesh && child.name !== "backWallCover") {
-          const geometry = child.geometry;
-          const position = geometry.attributes.position;
-          if (!position) return;
-
-          // Đảm bảo ma trận thế giới của mesh được cập nhật chính xác
-          child.updateMatrixWorld(true);
-
-          console.log(`[DEBUG COORDINATES] Mesh: ${child.name}`);
-          const tempV = new THREE.Vector3();
-          for (let i = 0; i < Math.min(5, position.count); i++) {
-            tempV.fromBufferAttribute(position, i);
-            const localX = tempV.x, localY = tempV.y, localZ = tempV.z;
-            child.localToWorld(tempV);
-            console.log(`  Vertex ${i} => Local: [${localX.toFixed(4)}, ${localY.toFixed(4)}, ${localZ.toFixed(4)}] | World: [${tempV.x.toFixed(4)}, ${tempV.y.toFixed(4)}, ${tempV.z.toFixed(4)}]`);
-          }
-
+      scene.traverse((child) => {
+        if (child.isMesh && child.name === "Mesh_0") {
           mainMesh = child;
         }
       });
-      if (!mainMesh) return; // Tiếp tục chờ
 
-      // Khi đã tìm thấy cả scene, modelRoot và mainMesh: dừng quét và tiến hành xử lý
+      if (attempts % 5 === 0) {
+        console.log(`[THREE.JS DEBUG] Attempt: ${attempts}, mainMesh: ${mainMesh ? "Found" : "Null"}`);
+      }
+
+      if (!mainMesh) return; // Tiếp tục chờ model tải xong
+
+      const modelRoot = mainMesh.parent || scene;
+
+      // Khi đã tìm thấy mainMesh: dừng quét và tiến hành xử lý
       clearInterval(initInterval);
       console.log(`[THREE.JS] Đã tìm thấy mesh chính: ${mainMesh.name}. Bắt đầu xử lý...`);
 
-      // === BƯỚC 1: XÓA/SAN PHẲNG MÁI CHE MẶT SAU (HỆ TOẠ ĐỘ LOCAL GLB: Z-UP, Y-DEPTH) ===
+      // === BƯỚC 1: XÓA/SAN PHẲNG MÁI CHE MẶT SAU (HỆ TOẠ ĐỘ LOCAL GLB: Y-HEIGHT, Z-DEPTH) ===
       const geometry = mainMesh.geometry;
       const position = geometry.attributes.position;
       const tempV = new THREE.Vector3();
@@ -1479,11 +1450,11 @@ if (modelViewerEl) {
       for (let i = 0; i < position.count; i++) {
         tempV.fromBufferAttribute(position, i);
 
-        // Trong tệp GLB gốc:
-        // Local Z là trục đứng (chiều cao), đáy là -0.6793, mái che dưới 6.7m tương đương Z < -0.045
-        // Local Y là trục sâu (chiều sâu), mặt sau lồi ra tương đương Y < -0.473
-        if (tempV.z < -0.045 && tempV.y < -0.473) {
-          tempV.y = -0.473; // San phẳng mặt sau về Y = -0.473
+        // Trong tệp GLB gốc (đã được verify qua phân tích nhị phân):
+        // Local Y là trục đứng (chiều cao), đáy là -0.8210, mái che dưới 6.7m tương đương Y < -0.186
+        // Local Z là trục sâu (chiều sâu), phần nhô ra ở mặt sau tương đương Z < -0.473
+        if (tempV.y < -0.186 && tempV.z < -0.473) {
+          tempV.z = -0.473; // San phẳng mặt sau về Z = -0.473
           position.setXYZ(i, tempV.x, tempV.y, tempV.z);
           modifiedCount++;
         }
@@ -1498,10 +1469,11 @@ if (modelViewerEl) {
       const localSize = geometry.boundingBox.getSize(new THREE.Vector3());
 
       const localWallW = localSize.x * 0.94; // Chiều rộng khít mép viền bên (1.78)
-      const localWallD = 0.005; // Chiều dày tường mỏng (world 0.05m)
       const localWallH = 0.582; // Chiều cao tường đứng (world 6.15m)
+      const localWallD = 0.005; // Chiều dày tường mỏng (world 0.05m)
 
-      const coverWallGeo = new THREE.BoxGeometry(localWallW, localWallD, localWallH);
+      // BoxGeometry(width, height, depth) -> (X=rộng, Y=cao, Z=dày)
+      const coverWallGeo = new THREE.BoxGeometry(localWallW, localWallH, localWallD);
       const coverWallMat = new THREE.MeshStandardMaterial({
         color: 0xE7D5BC, // Tông màu kem ấm giống dinh-tinh-truong
         roughness: 0.9,
@@ -1513,9 +1485,9 @@ if (modelViewerEl) {
 
       // Vị trí local chuẩn:
       // X = 0
-      // Y = -0.476 (Vị trí lùi sau world Z = -5.03)
-      // Z = -0.336 (Tâm đứng của tường trên trục Z local)
-      coverWall.position.set(0, -0.476, -0.336);
+      // Y = -0.478 (Tâm đứng của tường trên trục Y local: planter top -0.769 + H/2)
+      // Z = -0.476 (Vị trí lùi sau world Z = -5.03)
+      coverWall.position.set(0, -0.478, -0.476);
       coverWall.castShadow = true;
       coverWall.receiveShadow = true;
 
@@ -1526,7 +1498,7 @@ if (modelViewerEl) {
       }
 
       modelRoot.add(coverWall);
-      console.log("[THREE.JS] Đã tạo thành công bức tường mỏng che phủ mặt sau.");
+      console.log("[THREE.JS] Đã tạo thành công bức tường mỏng đứng che phủ mặt sau.");
 
       // Yêu cầu model-viewer render lại
       modelViewerEl.requestUpdate();
