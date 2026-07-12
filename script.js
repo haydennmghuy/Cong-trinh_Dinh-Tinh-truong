@@ -1239,16 +1239,16 @@ let activeDrawerSliderIndex = 0;
 
 function updateDrawerSlider() {
   if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) return;
-  
+
   const total = currentArtifact.images.length;
   const currentImg = currentArtifact.images[activeDrawerSliderIndex];
-  
+
   const sliderImg = document.getElementById("drawerSliderImg");
   if (sliderImg) sliderImg.src = currentImg;
-  
+
   const sliderCounter = document.getElementById("drawerSliderCounter");
   if (sliderCounter) sliderCounter.textContent = `${activeDrawerSliderIndex + 1} / ${total}`;
-  
+
   // Highlight active thumbnail and scroll into view
   const thumbs = document.querySelectorAll(".drawer-slider-thumb");
   thumbs.forEach((thumb, idx) => {
@@ -1519,28 +1519,27 @@ function viewProjectDetails() {
       <div style="background-color:rgba(189, 49, 7, 0.05); padding:16px; border-left:4px solid #bd3107; border-radius:4px; margin-bottom:16px;">
         <p style="font-weight:700; color:#bd3107; margin-bottom:6px;">Implemented by:</p>
         <p>Advanced Digital Skills Specialized Volunteers Team</p>
-        <p>Economics Students green summer volunteer campaign &copy; 2026</p>
+        <p>Economics Students' Volunteer Campaign &copy; 2026</p>
       </div>
 
       <p style="font-size:13.5px; color:#8c7365; font-style:italic;">
-        All visual media, audio narration, and historical documents are referenced directly from the monument's management board and local media archives.
+        All visual, audio, and historical materials in this project were gathered during our field research, with direct guidance, guided tours, and information support from the monument management board and the local Department of Culture and Information.
       </p>
     </div>
   ` : `
     <div style="font-family: inherit; font-size: 15px; color: #4e3524; line-height:1.7;">
       <p style="margin-bottom:14px; text-align:justify;">
-        Dự án <b>"Số hoá địa chỉ đỏ di tích kiến trúc nghệ thuật Dinh Tỉnh Trưởng Phước Thành"</b> nằm trong khuôn khổ chương trình chuyển đổi số nhằm lưu trữ, bảo tồn và quảng bá di tích lịch sử đến quần chúng nhân dân.
+        Dự án <b>"Số hoá địa chỉ đỏ di tích Dinh Tỉnh Trưởng Phước Thành"</b> nằm trong khuôn khổ chương trình chuyển đổi số nhằm lưu trữ, bảo tồn và quảng bá di tích lịch sử đến quần chúng nhân dân.
       </p>
       
       <div style="background-color:rgba(189, 49, 7, 0.05); padding:16px; border-left:4px solid #bd3107; border-radius:4px; margin-bottom:16px;">
         <p style="font-weight:700; color:#bd3107; margin-bottom:6px;">Đơn vị thực hiện:</p>
         <p>Đội hình Chuyên Nâng cao Kỹ năng số</p>
-        <p>Chiến dịch tình nguyện Mùa hè xanh sinh viên Kinh tế &copy; 2026</p>
+        <p>Chiến dịch tình nguyện sinh viên Kinh tế &copy; 2026</p>
       </div>
 
       <p style="font-size:13.5px; color:#8c7365; font-style:italic;">
-        Mọi dữ liệu hình ảnh, âm thanh và tư liệu lịch sử được tham khảo trực tiếp từ ban quản lý di tích và phòng truyền thống văn hoá thông tin địa phương.
-      </p>
+        Toàn bộ dữ liệu hình ảnh, âm thanh và tư liệu lịch sử trong dự án được thu thập từ chuyến khảo sát thực địa của đội hình, với sự hướng dẫn, thuyết minh trực tiếp và hỗ trợ cung cấp thông tin từ Ban quản lý di tích cùng Phòng Văn hóa và Thông tin địa phương.
     </div>
   `;
   openGlobalModal(title, body);
