@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -59,9 +59,17 @@
 
     /* ============ SPLASH SCREEN ============ */
     @keyframes splashGradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
     }
 
     #splashScreen {
@@ -69,13 +77,13 @@
       inset: 0;
       z-index: 10000;
       background: linear-gradient(135deg,
-        #5a1a00,
-        #8b6b43,
-        #f0e6cc,
-        #b58d53,
-        #faf6e9,
-        #8b6b43,
-        #3d1200);
+          #5a1a00,
+          #8b6b43,
+          #f0e6cc,
+          #b58d53,
+          #faf6e9,
+          #8b6b43,
+          #3d1200);
       background-size: 300% 300%;
       animation: splashGradientShift 8s ease infinite;
       display: flex;
@@ -2297,6 +2305,7 @@
       gap: 12px;
       margin-bottom: 20px;
     }
+
     .drawer-slider-main {
       position: relative;
       aspect-ratio: 16/9;
@@ -2308,12 +2317,14 @@
       justify-content: center;
       border: 1.5px solid #dca05f;
     }
+
     .drawer-slider-img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
       cursor: zoom-in;
     }
+
     .drawer-slider-btn {
       position: absolute;
       top: 50%;
@@ -2334,17 +2345,21 @@
       padding: 0;
       line-height: 1;
     }
+
     .drawer-slider-btn:hover {
       background: rgba(220, 160, 95, 0.9);
       color: #2b1405;
       transform: translateY(-50%) scale(1.1);
     }
+
     .drawer-slider-btn.prev-btn {
       left: 10px;
     }
+
     .drawer-slider-btn.next-btn {
       right: 10px;
     }
+
     .drawer-slider-counter {
       position: absolute;
       bottom: 10px;
@@ -2356,24 +2371,29 @@
       font-size: 11px;
       font-family: inherit;
     }
+
     .drawer-slider-thumbs {
       display: flex;
       gap: 8px;
       overflow-x: auto;
       padding-bottom: 8px;
       scrollbar-width: thin;
-      scrollbar-color: #dca05f rgba(0,0,0,0.1);
+      scrollbar-color: #dca05f rgba(0, 0, 0, 0.1);
     }
+
     .drawer-slider-thumbs::-webkit-scrollbar {
       height: 6px;
     }
+
     .drawer-slider-thumbs::-webkit-scrollbar-thumb {
       background-color: #dca05f;
       border-radius: 3px;
     }
+
     .drawer-slider-thumbs::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
+      background: rgba(0, 0, 0, 0.05);
     }
+
     .drawer-slider-thumb {
       width: 60px;
       height: 45px;
@@ -2385,10 +2405,13 @@
       flex-shrink: 0;
       transition: all 0.2s ease;
     }
-    .drawer-slider-thumb:hover, .drawer-slider-thumb.active {
+
+    .drawer-slider-thumb:hover,
+    .drawer-slider-thumb.active {
       opacity: 1;
       border-color: #dca05f;
     }
+
     .drawer-slider-thumb img {
       width: 100%;
       height: 100%;
@@ -2812,8 +2835,9 @@
         </button>
         <button class="room-panel-btn" onclick="loadRoomScreen(4)">
           <span class="rpb-num">04</span>
-          <span class="rpb-text" data-vi="Khu Trù Mật - Ấp chiến lược" data-en="Agrovilles - Strategic Hamlets">Khu Trù
-            Mật - Ấp chiến lược</span>
+          <span class="rpb-text" data-vi="Khu Trù Mật - Ấp chiến lược kiểu mới của Mỹ - Ngụy"
+            data-en="Agrovilles - Strategic Hamlets: The New Model of the US and the South Vietnamese Government">Khu
+            Trù Mật - Ấp chiến lược kiểu mới của Mỹ - Ngụy</span>
           <span class="rpb-arrow">›</span>
         </button>
         <button class="room-panel-btn" onclick="loadRoomScreen(5)">
@@ -2896,7 +2920,8 @@
         <div class="drawer-slider" id="drawerSliderContainer" style="display: none;">
           <div class="drawer-slider-main">
             <button class="drawer-slider-btn prev-btn" onclick="slideDrawerImg(-1)">‹</button>
-            <img id="drawerSliderImg" class="drawer-slider-img" src="" alt="Hình hiện vật" onclick="openDrawerImgLightbox()">
+            <img id="drawerSliderImg" class="drawer-slider-img" src="" alt="Hình hiện vật"
+              onclick="openDrawerImgLightbox()">
             <button class="drawer-slider-btn next-btn" onclick="slideDrawerImg(1)">›</button>
             <div class="drawer-slider-counter" id="drawerSliderCounter">1 / 1</div>
           </div>
