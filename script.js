@@ -1108,45 +1108,20 @@ function setupArtifactImagesTab() {
   const grid = document.getElementById("artifactImagesGrid");
   grid.innerHTML = "";
 
+  // Always hide the slider - using mosaic grid only
   const sliderContainer = document.getElementById("drawerSliderContainer");
-  const thumbsContainer = document.getElementById("drawerSliderThumbs");
+  if (sliderContainer) sliderContainer.style.display = "none";
 
   if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) {
     const noImagesText = currentLang === 'en' ? "No exhibit images available." : "Chưa có hình ảnh hiện vật.";
     grid.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #8c7365; font-size: 13.5px; padding: 30px; font-style: italic;">${noImagesText}</div>`;
-    if (sliderContainer) sliderContainer.style.display = "none";
     return;
-  }
-
-  // Setup slider
-  if (sliderContainer && thumbsContainer) {
-    sliderContainer.style.display = "flex";
-    thumbsContainer.innerHTML = "";
-
-    currentArtifact.images.forEach((imgSrc, idx) => {
-      const thumb = document.createElement("div");
-      thumb.className = "drawer-slider-thumb" + (idx === activeDrawerSliderIndex ? " active" : "");
-      thumb.onclick = () => {
-        activeDrawerSliderIndex = idx;
-        updateDrawerSlider();
-      };
-
-      const thumbImg = document.createElement("img");
-      thumbImg.src = imgSrc;
-      thumbImg.alt = `Thumb-${idx + 1}`;
-      thumb.appendChild(thumbImg);
-      thumbsContainer.appendChild(thumb);
-    });
-
-    updateDrawerSlider();
   }
 
   currentArtifact.images.forEach((imgSrc, idx) => {
     const item = document.createElement("div");
     item.className = "mosaic-item";
     item.onclick = () => {
-      activeDrawerSliderIndex = idx;
-      updateDrawerSlider();
       showLightbox(currentArtifact.images, idx);
     };
 

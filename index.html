@@ -58,16 +58,26 @@
     }
 
     /* ============ SPLASH SCREEN ============ */
+    @keyframes splashGradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     #splashScreen {
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: linear-gradient(160deg,
-        #1a0800 0%,
-        #3b1200 25%,
-        #5c2000 50%,
-        #2e0d00 75%,
-        #120500 100%);
+      background: linear-gradient(135deg,
+        #7a2d00,
+        #c25a1a,
+        #e8873a,
+        #b84d10,
+        #8c3300,
+        #c87030,
+        #6e2200);
+      background-size: 300% 300%;
+      animation: splashGradientShift 8s ease infinite;
       display: flex;
       align-items: center;
       justify-content: center;
