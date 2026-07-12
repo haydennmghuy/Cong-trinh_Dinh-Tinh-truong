@@ -128,17 +128,17 @@ const ROOM_DATABASE = {
     artifacts: [
       {
         id: "room2_marker1",
-        name: "Hiện vật trưng bày phòng 2 - Nhóm 1",
-        nameEN: "Room 2 Exhibits - Group 1",
+        name: "Tư liệu địa lý và bản đồ hành chính Phú Giáo thời Pháp",
+        nameEN: "Geography Records & French Colonial Administration Maps",
         viewIndex: 1,
         xRatio: 0.615,
         yRatio: 0.505,
         audio: "",
         description: `
-          <p>Tài liệu, bản đồ giới thiệu về dân cư và địa bàn hoạt động. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày các bản đồ địa giới hành chính, sơ đồ phân bố dân cư và các tư liệu lưu trữ của thực dân Pháp liên quan đến vùng đất Phú Giáo - Phước Thành xưa.</p>
         `,
         descriptionEN: `
-          <p>Documents and maps depicting the population and area of activity. Detailed description is being updated...</p>
+          <p>Exhibits administrative boundary maps, population distribution charts, and archive files regarding the historic Phu Giao - Phuoc Thanh region under French rule.</p>
         `,
         images: [
           "anhphong2/anhhienvat2/anhhienvat2.1.JPG",
@@ -151,17 +151,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room2_marker2",
-        name: "Hiện vật trưng bày phòng 2 - Nhóm 2",
-        nameEN: "Room 2 Exhibits - Group 2",
+        name: "Vũ khí tự tạo và tư liệu chiến khu Đ",
+        nameEN: "Self-made Weapons & War Zone D Records",
         viewIndex: 2,
         xRatio: 0.499,
         yRatio: 0.450,
         audio: "",
         description: `
-          <p>Tranh vẽ tư liệu lịch sử và tủ trưng bày khí giới tự tạo thời kỳ kháng chiến chống Pháp. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Sưu tập các loại súng tự chế, giáo mác, dao găm và công cụ chiến đấu thô sơ do dân quân Phú Giáo chế tạo, cùng với tranh vẽ tái hiện phong trào đấu tranh du kích thời chống Pháp.</p>
         `,
         descriptionEN: `
-          <p>Historical documentary paintings and a display cabinet of homemade weapons during the anti-French resistance. Detailed description is being updated...</p>
+          <p>Collection of locally manufactured shotguns, spears, daggers, and primitive weapons crafted by Phu Giao militiamen, complemented by illustrations of anti-French guerrilla operations.</p>
         `,
         images: [
           "anhphong2/anhhienvat2/anhhienvat2.7.JPG",
@@ -193,17 +193,17 @@ const ROOM_DATABASE = {
     artifacts: [
       {
         id: "room3_marker1",
-        name: "Hiện vật trưng bày phòng 3 - Nhóm 1",
-        nameEN: "Room 3 Exhibits - Group 1",
+        name: "Tư liệu chiến dịch và trận đánh oai hùng",
+        nameEN: "Combat Operations & Battle Documents",
         viewIndex: 0,
         xRatio: 0.305,
         yRatio: 0.420,
         audio: "",
         description: `
-          <p>Các hình ảnh và tranh tư liệu lịch sử mô tả trận chiến quyết liệt. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Sưu tập hình ảnh tư liệu về các phong trào đồng khởi, bản đồ hành quân chiến dịch, cùng những bức ảnh chiến đấu kiên cường của quân và dân Phú Giáo chống lại các cuộc càn quét của quân Mỹ.</p>
         `,
         descriptionEN: `
-          <p>Historical images and paintings depicting the fierce battle. Detailed description is being updated...</p>
+          <p>A rich archive of historical photos on the uprisings, operation maps, and battle snapshots showing the resilience of Phu Giao military and people combating American search-and-destroy campaigns.</p>
         `,
         images: [
           "anhphong3/anhhienvat3/anhhienvat3.5.JPG",
@@ -251,17 +251,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room3_marker2",
-        name: "Hiện vật trưng bày phòng 3 - Nhóm 2",
-        nameEN: "Room 3 Exhibits - Group 2",
+        name: "Bảng danh dự Bà Mẹ Việt Nam Anh Hùng",
+        nameEN: "Vietnamese Heroic Mothers Commemoration Board",
         viewIndex: 0,
         xRatio: 0.699,
         yRatio: 0.490,
         audio: "",
         description: `
-          <p>Bảng vàng danh dự vinh danh Bà mẹ Việt Nam Anh hùng của huyện Phú Giáo. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Bảng vàng trang trọng lưu giữ thông tin, chân dung và thành tựu cống hiến lớn lao của các Bà mẹ Việt Nam Anh Hùng trên địa bàn Phú Giáo đã hiến dâng những người con thân yêu cho sự nghiệp giải phóng dân tộc.</p>
         `,
         descriptionEN: `
-          <p>Roll of Honor dedicating the Heroic Vietnamese Mothers of Phu Giao District. Detailed description is being updated...</p>
+          <p>Solemn roll of honor exhibiting biographical briefs, portraits, and lifetime tributes to the Heroic Vietnamese Mothers of Phu Giao who dedicated their loved ones to the independence cause.</p>
         `,
         images: [
           "anhphong3/anhhienvat3/anhhienvat3.46.JPG",
@@ -272,17 +272,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room3_marker3",
-        name: "Hiện vật trưng bày phòng 3 - Nhóm 3",
-        nameEN: "Room 3 Exhibits - Group 3",
+        name: "Kỷ vật chiến trường và quân nhu cách mạng",
+        nameEN: "Military Relics & Infantry Gear",
         viewIndex: 0,
         xRatio: 0.778,
         yRatio: 0.785,
         audio: "",
         description: `
-          <p>Tủ kính trưng bày trang thiết bị quân nhu như mũ sắt, quân trang của chiến sĩ. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày các hiện vật quân trang, quân dụng như mũ sắt, bi đông đựng nước, võng dù, ba lô cùng đồ dùng sinh hoạt cá nhân của các chiến sĩ giải phóng quân từng hoạt động trên chiến trường Phú Giáo.</p>
         `,
         descriptionEN: `
-          <p>Display cabinet containing military equipment, steel helmets, and gear of soldiers. Detailed description is being updated...</p>
+          <p>Displays authentic infantry gear including steel helmets, canteens, hammocks, rucksacks, and personal objects carried by revolutionary soldiers across the Phu Giao campaigns.</p>
         `,
         images: [
           "anhphong3/anhhienvat3/anhhienvat3.1.JPG",
@@ -314,17 +314,17 @@ const ROOM_DATABASE = {
     artifacts: [
       {
         id: "room4_marker1",
-        name: "Hiện vật trưng bày phòng 4 - Nhóm 1",
-        nameEN: "Room 4 Exhibits - Group 1",
+        name: "Hình ảnh Khu Trù Mật và cuộc sống dưới chính sách dồn dân",
+        nameEN: "Agroville Photos & Life Under Forced Resettlement Policy",
         viewIndex: 0,
         xRatio: 0.347,
         yRatio: 0.555,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc tủ trưng bày số 1 phòng 4. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Bộ ảnh tư liệu ghi lại cuộc sống khắc nghiệt của người dân Phú Giáo bị cưỡng bức vào các Khu Trù Mật và Ấp chiến lược, phản ánh chính sách bình định tàn bạo của chính quyền Mỹ - Ngụy nhằm kiểm soát và tách ly quần chúng khỏi cách mạng.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display cabinet 1 in Room 4. Detailed description is being updated...</p>
+          <p>A documentary collection of photos capturing the harsh life of Phu Giao residents forcibly relocated into strategic hamlets, reflecting the brutal pacification policy of the US-Diem regime designed to isolate the population from the revolutionary movement.</p>
         `,
         images: [
           "anhphong4/anhhienvat4/anhhienvat4.5.JPG",
@@ -336,17 +336,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room4_marker2",
-        name: "Hiện vật trưng bày phòng 4 - Nhóm 2",
-        nameEN: "Room 4 Exhibits - Group 2",
+        name: "Tài liệu quy hoạch và sơ đồ Ấp chiến lược",
+        nameEN: "Strategic Hamlet Layout Plans & Administrative Documents",
         viewIndex: 0,
         xRatio: 0.573,
         yRatio: 0.540,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc khu vực trưng bày số 2 phòng 4. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày bản sao các sơ đồ quy hoạch, công văn chỉ đạo xây dựng Ấp chiến lược và tài liệu hành chính của Mỹ - Ngụy, cho thấy quy mô và bản chất của chính sách bình định cưỡng ép trên địa bàn Phước Thành.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display area 2 in Room 4. Detailed description is being updated...</p>
+          <p>Displays reproduced layout schematics, directives for constructing strategic hamlets, and administrative documents of the US-Diem regime, illustrating the scale and nature of the coercive pacification campaign across Phuoc Thanh.</p>
         `,
         images: [
           "anhphong4/anhhienvat4/anhhienvat4.1.JPG",
@@ -357,17 +357,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room4_marker3",
-        name: "Hiện vật trưng bày phòng 4 - Nhóm 3",
-        nameEN: "Room 4 Exhibits - Group 3",
+        name: "Hiện vật phá Ấp chiến lược và vũ khí thu được",
+        nameEN: "Seized Weapons & Strategic Hamlet Dismantlement Relics",
         viewIndex: 0,
         xRatio: 0.771,
         yRatio: 0.574,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc tủ trưng bày số 3 phòng 4. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày các loại vũ khí, công cụ quân sự và hiện vật thu được trong các trận phá Ấp chiến lược, minh chứng cho tinh thần quật cường của quân và dân Phú Giáo trong việc đánh bại chiến lược "bình định" của địch.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display cabinet 3 in Room 4. Detailed description is being updated...</p>
+          <p>Exhibits weapons, military tools, and relics captured during the campaigns to dismantle strategic hamlets, testifying to the indomitable spirit of Phu Giao fighters in defeating the enemy's pacification strategy.</p>
         `,
         images: [
           "anhphong4/anhhienvat4/anhhienvat4.23.JPG",
@@ -377,17 +377,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room4_marker4",
-        name: "Hiện vật trưng bày phòng 4 - Nhóm 4",
-        nameEN: "Room 4 Exhibits - Group 4",
+        name: "Tranh ảnh và hồ sơ sự kiện lịch sử địa phương",
+        nameEN: "Historical Event Photographs & Local Records",
         viewIndex: 1,
         xRatio: 0.608,
         yRatio: 0.570,
         audio: "",
         description: `
-          <p>Các tư liệu, hình ảnh lịch sử thuộc khu vực trưng bày số 4 phòng 4. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Tập hợp tư liệu ảnh và hồ sơ ghi chép về các sự kiện lịch sử quan trọng xảy ra tại Phú Giáo - Phước Thành, bao gồm các cuộc mít tinh, phong trào đấu tranh chính trị và những mốc son trong công cuộc chống dồn dân của địa phương.</p>
         `,
         descriptionEN: `
-          <p>Historical documents and images belonging to display area 4 in Room 4. Detailed description is being updated...</p>
+          <p>A curated collection of photographic records and documented accounts of significant historical events in Phu Giao - Phuoc Thanh, including mass rallies, political struggle movements, and milestones of the anti-resettlement resistance.</p>
         `,
         images: [
           "anhphong4/anhhienvat4/anhhienvat4.10.JPG",
@@ -430,17 +430,17 @@ const ROOM_DATABASE = {
     artifacts: [
       {
         id: "room5_marker1",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 1",
-        nameEN: "Room 5 Exhibits - Group 1",
+        name: "Hình ảnh các trận đánh lịch sử tại Phước Thành",
+        nameEN: "Historical Battle Scenes at Phuoc Thanh",
         viewIndex: 0,
         xRatio: 0.288,
         yRatio: 0.490,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc tủ trưng bày số 1 phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Bộ tư liệu ảnh quý hiếm ghi lại diễn biến các trận đánh quyết định trên chiến trường Phước Thành, thể hiện tinh thần chiến đấu kiên cường của lực lượng vũ trang địa phương trong giai đoạn cuối của cuộc kháng chiến chống Mỹ.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display cabinet 1 in Room 5. Detailed description is being updated...</p>
+          <p>A rare photographic archive documenting the decisive battles fought on the Phuoc Thanh battlefield, showcasing the determined fighting spirit of local armed forces in the final stages of the anti-American resistance war.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.1.JPG",
@@ -456,17 +456,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room5_marker2",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 2",
-        nameEN: "Room 5 Exhibits - Group 2",
+        name: "Cờ, huân chương và biểu trưng chiến thắng",
+        nameEN: "Flags, Medals & Victory Symbols",
         viewIndex: 1,
         xRatio: 0.169,
         yRatio: 0.570,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc khu vực trưng bày số 2 phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày cờ chiến thắng, huân huy chương, bằng khen và các biểu trưng ghi nhận chiến công của các đơn vị quân sự cũng như cá nhân anh hùng trong Chiến thắng Phước Thành lịch sử.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display area 2 in Room 5. Detailed description is being updated...</p>
+          <p>Displays victory flags, medals, commendations, and symbolic emblems recognizing the achievements of military units and individual heroes throughout the historic Phuoc Thanh Victory.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.39.JPG",
@@ -481,17 +481,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room5_marker3",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 3",
-        nameEN: "Room 5 Exhibits - Group 3",
+        name: "Kỷ vật và di vật của các anh hùng liệt sĩ",
+        nameEN: "Personal Relics & Mementos of Fallen Heroes",
         viewIndex: 2,
         xRatio: 0.228,
         yRatio: 0.585,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc tủ trưng bày số 3 phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Sưu tập di vật cá nhân như thư từ, nhật ký chiến trường, ảnh chân dung và vật dụng hàng ngày của các anh hùng liệt sĩ đã hy sinh anh dũng trong Chiến thắng Phước Thành.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display cabinet 3 in Room 5. Detailed description is being updated...</p>
+          <p>A collection of personal mementos including letters, battlefield diaries, portrait photographs, and everyday objects belonging to the fallen heroes who sacrificed their lives in the Phuoc Thanh Victory.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.45.JPG",
@@ -503,17 +503,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room5_marker4",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 4",
-        nameEN: "Room 5 Exhibits - Group 4",
+        name: "Sa bàn tái hiện chiến dịch giải phóng",
+        nameEN: "Liberation Campaign Tactical Map Model",
         viewIndex: 3,
         xRatio: 0.310,
         yRatio: 0.450,
         audio: "",
         description: `
-          <p>Các tư liệu, hình ảnh lịch sử thuộc sa bàn hoặc mô hình trung tâm phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Mô hình sa bàn 3D tái hiện chi tiết sơ đồ chiến thuật và tiến trình Chiến dịch giải phóng Phước Thành năm 1975, mô phỏng các hướng tiến công, chốt phòng thủ và mục tiêu chiến lược của quân giải phóng.</p>
         `,
         descriptionEN: `
-          <p>Historical documents and images belonging to the center map or base model in Room 5. Detailed description is being updated...</p>
+          <p>A detailed 3D tactical map model recreating the battle plan and progression of the 1975 Phuoc Thanh Liberation Campaign, simulating attack routes, defensive positions, and key strategic objectives of the liberation forces.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.10.JPG",
@@ -529,17 +529,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room5_marker5",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 5",
-        nameEN: "Room 5 Exhibits - Group 5",
+        name: "Vũ khí và chiến lợi phẩm thu được",
+        nameEN: "Captured Weapons & War Trophies",
         viewIndex: 3,
         xRatio: 0.729,
         yRatio: 0.500,
         audio: "",
         description: `
-          <p>Mẫu hiện vật thuộc tủ trưng bày số 5 phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Trưng bày các loại vũ khí hiện đại thu được sau Chiến thắng Phước Thành, bao gồm súng trường, súng máy, đạn dược và quân trang của quân đội Sài Gòn, minh chứng rõ nét cho kết cục tất thắng của cuộc chiến.</p>
         `,
         descriptionEN: `
-          <p>Sample exhibits belonging to display cabinet 5 in Room 5. Detailed description is being updated...</p>
+          <p>Displays modern weapons captured after the Phuoc Thanh Victory, including rifles, machine guns, ammunition, and Saigon Army gear, serving as vivid evidence of the war's victorious outcome.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.19.JPG",
@@ -552,17 +552,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room5_marker6",
-        name: "Hiện vật trưng bày phòng 5 - Nhóm 6",
-        nameEN: "Room 5 Exhibits - Group 6",
+        name: "Ngày giải phóng và ký ức sau chiến thắng",
+        nameEN: "Liberation Day & Post-Victory Memories",
         viewIndex: 4,
         xRatio: 0.551,
         yRatio: 0.520,
         audio: "",
         description: `
-          <p>Hình ảnh, hiện vật thuộc tủ trưng bày số 6 phòng 5. Nội dung thuyết minh chi tiết đang được cập nhật...</p>
+          <p>Tập hợp hình ảnh và tư liệu ghi lại không khí hân hoan ngày giải phóng Phước Thành, hình ảnh quân dân đoàn tụ, lễ thượng cờ và những hoạt động đầu tiên của chính quyền cách mạng sau ngày thống nhất.</p>
         `,
         descriptionEN: `
-          <p>Images and artifacts belonging to display cabinet 6 in Room 5. Detailed description is being updated...</p>
+          <p>A collection of photographs and records capturing the joyous atmosphere of Phuoc Thanh's liberation day, including scenes of soldiers and civilians reuniting, flag-raising ceremonies, and the first activities of the revolutionary government after reunification.</p>
         `,
         images: [
           "anhphong5/anhhienvat5/anhhienvat5.25.JPG",
@@ -997,6 +997,11 @@ function showRoomInfo() {
   // Setup room images/videos inside Images Tab
   const grid = document.getElementById("artifactImagesGrid");
   grid.innerHTML = "";
+
+  const sliderContainer = document.getElementById("drawerSliderContainer");
+  if (sliderContainer) {
+    sliderContainer.style.display = "none";
+  }
 
   // Render videos first if available
   if (room.videos && room.videos.length) {

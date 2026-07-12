@@ -62,7 +62,12 @@
       position: fixed;
       inset: 0;
       z-index: 10000;
-      background: url('anhdinh/splashscreen.png') center/cover no-repeat;
+      background: linear-gradient(160deg,
+        #1a0800 0%,
+        #3b1200 25%,
+        #5c2000 50%,
+        #2e0d00 75%,
+        #120500 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1309,6 +1314,7 @@
     .intro-gallery-section {
       position: relative;
       height: 380px;
+      margin-top: -4px;
     }
 
     .gallery-strip {
@@ -1366,9 +1372,20 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 80px;
-      background: linear-gradient(to top, #fffaf2 0%, transparent 100%);
+      height: 100px;
+      background: linear-gradient(to top, var(--bg-cream) 0%, transparent 100%);
       pointer-events: none;
+    }
+
+    .gallery-fade-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(to bottom, #0e0300 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 2;
     }
 
     /* ===== ABOUT SECTION UPGRADES ===== */
@@ -1739,7 +1756,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(20, 5, 0, 0.35) 0%, rgba(20, 5, 0, 0.75) 100%);
+      background: linear-gradient(to bottom, rgba(20, 5, 0, 0.35) 0%, rgba(20, 5, 0, 0.80) 85%, #0e0300 100%);
     }
 
     .intro-hero-content {
@@ -2465,6 +2482,7 @@
           </div>
         </div>
       </div>
+      <div class="gallery-fade-top"></div>
       <div class="gallery-fade-bottom"></div>
     </section>
 
@@ -2636,9 +2654,6 @@
             <div class="audio-bar-time" id="introAudioTime">00:00</div>
           </div>
         </div>
-        <p class="audio-note" data-vi="🎧 Audio thuyết minh đang được cập nhật. Vui lòng quay lại sau."
-          data-en="🎧 Audio guide is being updated. Please check back later.">🎧 Audio thuyết minh đang được cập nhật.
-          Vui lòng quay lại sau.</p>
       </div>
     </section>
 
