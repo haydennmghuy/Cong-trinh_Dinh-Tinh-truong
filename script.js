@@ -30,8 +30,8 @@ const ROOM_DATABASE = {
         name: "Tư liệu phát triển kinh tế, xã hội Phú Giáo",
         nameEN: "Phu Giao Socio-Economic Development Documents",
         viewIndex: 0,
-        xRatio: 0.14,
-        yRatio: 0.51,
+        xRatio: 0.24,
+        yRatio: 0.70,
         audio: "",
         description: `
           <p>Khu vực trưng bày tập hợp các biểu đồ, số liệu thống kê và hình ảnh tư liệu phản ánh kết quả phát triển kinh tế, văn hóa và xã hội của huyện Phú Giáo qua các giai đoạn đổi mới.</p>
@@ -46,8 +46,8 @@ const ROOM_DATABASE = {
         name: "Mô hình sa bàn tổng quan di tích",
         nameEN: "Mansion General Mockup Model",
         viewIndex: 0,
-        xRatio: 0.50,
-        yRatio: 0.60,
+        xRatio: 0.53,
+        yRatio: 0.61,
         audio: "",
         description: `
           <p>Mô hình sa bàn 3D chi tiết mô phỏng sơ đồ di tích Dinh Tỉnh Trưởng Phước Thành cùng khuôn viên xung quanh, giúp khách tham quan dễ dàng hình dung toàn bộ cấu trúc địa thế của khu di tích.</p>
@@ -62,8 +62,8 @@ const ROOM_DATABASE = {
         name: "Hình ảnh hoạt động văn hóa, giáo dục địa phương",
         nameEN: "Local Culture & Education Activities",
         viewIndex: 1,
-        xRatio: 0.39,
-        yRatio: 0.58,
+        xRatio: 0.405,
+        yRatio: 0.53,
         audio: "",
         description: `
           <p>Hình ảnh ghi lại các sự kiện văn hóa nghệ thuật, phong trào thi đua dạy và học, cùng các hoạt động cộng đồng nổi bật của nhân dân huyện Phú Giáo qua thời gian.</p>
@@ -79,7 +79,7 @@ const ROOM_DATABASE = {
         nameEN: "List of Past Leaders & Officers",
         viewIndex: 1,
         xRatio: 0.54,
-        yRatio: 0.57,
+        yRatio: 0.55,
         audio: "",
         description: `
           <p>Bảng danh chính lưu danh các cán bộ lãnh đạo, đảng viên và chiến sĩ cách mạng tiêu biểu có đóng góp quan trọng trong các thời kỳ kháng chiến và kiến thiết xây dựng quê hương Phú Giáo.</p>
@@ -94,8 +94,8 @@ const ROOM_DATABASE = {
         name: "Hiện vật lịch sử và tư liệu xây dựng",
         nameEN: "Historical Artifacts & Construction Records",
         viewIndex: 1,
-        xRatio: 0.83,
-        yRatio: 0.55,
+        xRatio: 0.885,
+        yRatio: 0.57,
         audio: "",
         description: `
           <p>Tủ kính lưu giữ các kỷ vật, công văn chỉ đạo, bản vẽ quy hoạch cùng tư liệu hiện vật ghi dấu chặng đường đấu tranh và kiến thiết huyện Phú Giáo qua nhiều thế hệ.</p>
@@ -633,7 +633,7 @@ let galleryIndex = 0;
 // Leaflet Map Initialization
 const map = L.map('map', {
   crs: L.CRS.Simple,
-  minZoom: -3,
+  minZoom: -5,
   maxZoom: 5,
   zoomSnap: 0.05, // Cho phép zoom lẻ thập phân mượt mà không bị làm tròn
   zoomControl: false,
