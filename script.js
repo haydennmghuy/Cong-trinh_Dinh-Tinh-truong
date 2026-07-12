@@ -30,7 +30,7 @@ const ROOM_DATABASE = {
         name: "Tư liệu phát triển kinh tế, xã hội Phú Giáo",
         nameEN: "Phu Giao Socio-Economic Development Documents",
         viewIndex: 0,
-        xRatio: 0.155,
+        xRatio: 0.14,
         yRatio: 0.51,
         audio: "",
         description: `
@@ -47,7 +47,7 @@ const ROOM_DATABASE = {
         nameEN: "Mansion General Mockup Model",
         viewIndex: 0,
         xRatio: 0.50,
-        yRatio: 0.39,
+        yRatio: 0.60,
         audio: "",
         description: `
           <p>Mô hình sa bàn 3D chi tiết mô phỏng sơ đồ di tích Dinh Tỉnh Trưởng Phước Thành cùng khuôn viên xung quanh, giúp khách tham quan dễ dàng hình dung toàn bộ cấu trúc địa thế của khu di tích.</p>
@@ -62,8 +62,8 @@ const ROOM_DATABASE = {
         name: "Hình ảnh hoạt động văn hóa, giáo dục địa phương",
         nameEN: "Local Culture & Education Activities",
         viewIndex: 1,
-        xRatio: 0.40,
-        yRatio: 0.50,
+        xRatio: 0.39,
+        yRatio: 0.58,
         audio: "",
         description: `
           <p>Hình ảnh ghi lại các sự kiện văn hóa nghệ thuật, phong trào thi đua dạy và học, cùng các hoạt động cộng đồng nổi bật của nhân dân huyện Phú Giáo qua thời gian.</p>
@@ -78,8 +78,8 @@ const ROOM_DATABASE = {
         name: "Danh sách lãnh đạo và cán bộ thời kỳ trước",
         nameEN: "List of Past Leaders & Officers",
         viewIndex: 1,
-        xRatio: 0.535,
-        yRatio: 0.46,
+        xRatio: 0.54,
+        yRatio: 0.57,
         audio: "",
         description: `
           <p>Bảng danh chính lưu danh các cán bộ lãnh đạo, đảng viên và chiến sĩ cách mạng tiêu biểu có đóng góp quan trọng trong các thời kỳ kháng chiến và kiến thiết xây dựng quê hương Phú Giáo.</p>
@@ -94,8 +94,8 @@ const ROOM_DATABASE = {
         name: "Hiện vật lịch sử và tư liệu xây dựng",
         nameEN: "Historical Artifacts & Construction Records",
         viewIndex: 1,
-        xRatio: 0.895,
-        yRatio: 0.43,
+        xRatio: 0.83,
+        yRatio: 0.55,
         audio: "",
         description: `
           <p>Tủ kính lưu giữ các kỷ vật, công văn chỉ đạo, bản vẽ quy hoạch cùng tư liệu hiện vật ghi dấu chặng đường đấu tranh và kiến thiết huyện Phú Giáo qua nhiều thế hệ.</p>
