@@ -616,6 +616,14 @@ const DINH_GALLERY_IMAGES = [
   "anhphong1/anhtoanphong/anhtoanphong1.1.png"
 ];
 
+// Gallery images specifically for the hero section strip
+const HERO_GALLERY_IMAGES = [
+  "anhdinh/IMG_8823.JPG",
+  "anhdinh/IMG_8815.JPG",
+  "anhdinh/dinh-tinh-truong-phuoc-thanh-diem-den-du-lich-thu-vi-tren-vung-que-phu-giao-3-1655399170.jpg",
+  "anhdinh/0967C44491EF8086B5772E2A2DD1C1C7.jpg"
+];
+
 // Global parameters
 let currentViewMode = "building"; // "building" | "room"
 let activeRoomId = null;
