@@ -1,13 +1,112 @@
 console.log("[DEBUG] script.js loaded and executing!");
 // ===== CONFIGURING STATIC APP DATA =====
+function generateImgArray(prefix, start, end) {
+  const arr = [];
+  for (let i = start; i <= end; i++) {
+    arr.push(`${prefix}${i}.JPG`);
+  }
+  return arr;
+}
+
 const ROOM_DATABASE = {
   1: {
     name: "Phòng trưng bày 01",
     subtitle: "Phú Giáo trên đường phát triển",
     subtitleEN: "Phu Giao on the path of development",
-    views: [],
-    artifacts: [],
-    available: false
+    views: [
+      "anhphong1/anhtoanphong1/anhtoanphong1.1.JPG",
+      "anhphong1/anhtoanphong1/anhtoanphong1.2.JPG"
+    ],
+    audio: "",
+    description: `
+      <p>Phòng trưng bày 01 giới thiệu tổng quan về huyện Phú Giáo trên con đường xây dựng và phát triển. Nơi đây lưu giữ các hình ảnh, hiện vật về sự thay đổi diện mạo kinh tế, xã hội địa phương qua các thời kỳ.</p>
+    `,
+    descriptionEN: `
+      <p>Exhibition Room 01 introducing an overview of Phu Giao district on its path of construction and development. It houses images and artifacts illustrating the transformation of local socio-economic aspects throughout different periods.</p>
+    `,
+    artifacts: [
+      {
+        id: "room1_marker1",
+        name: "Tư liệu phát triển kinh tế, xã hội Phú Giáo",
+        nameEN: "Phu Giao Socio-Economic Development Documents",
+        viewIndex: 0,
+        xRatio: 0.155,
+        yRatio: 0.51,
+        audio: "",
+        description: `
+          <p>Khu vực trưng bày tập hợp các biểu đồ, số liệu thống kê và hình ảnh tư liệu phản ánh kết quả phát triển kinh tế, văn hóa và xã hội của huyện Phú Giáo qua các giai đoạn đổi mới.</p>
+        `,
+        descriptionEN: `
+          <p>The display area collects charts, statistical data, and documentary photographs reflecting the economic, cultural, and social development achievements of Phu Giao district through regional renovation periods.</p>
+        `,
+        images: generateImgArray("anhphong1/anhhienvat1/anhhienvat1.", 1, 48)
+      },
+      {
+        id: "room1_marker2",
+        name: "Mô hình sa bàn tổng quan di tích",
+        nameEN: "Mansion General Mockup Model",
+        viewIndex: 0,
+        xRatio: 0.50,
+        yRatio: 0.39,
+        audio: "",
+        description: `
+          <p>Mô hình sa bàn 3D chi tiết mô phỏng sơ đồ di tích Dinh Tỉnh Trưởng Phước Thành cùng khuôn viên xung quanh, giúp khách tham quan dễ dàng hình dung toàn bộ cấu trúc địa thế của khu di tích.</p>
+        `,
+        descriptionEN: `
+          <p>Detailed 3D mockup model showing the mapping of Phuoc Thanh Governor's Mansion and its surrounding grounds, helping visitors visualize the spatial layout of the historic site.</p>
+        `,
+        images: generateImgArray("anhphong1/anhhienvat1/anhhienvat1.", 49, 52)
+      },
+      {
+        id: "room1_marker3",
+        name: "Hình ảnh hoạt động văn hóa, giáo dục địa phương",
+        nameEN: "Local Culture & Education Activities",
+        viewIndex: 1,
+        xRatio: 0.40,
+        yRatio: 0.50,
+        audio: "",
+        description: `
+          <p>Hình ảnh ghi lại các sự kiện văn hóa nghệ thuật, phong trào thi đua dạy và học, cùng các hoạt động cộng đồng nổi bật của nhân dân huyện Phú Giáo qua thời gian.</p>
+        `,
+        descriptionEN: `
+          <p>Photographs capturing cultural events, teaching and learning movements, and outstanding community activities of the people of Phu Giao District over time.</p>
+        `,
+        images: generateImgArray("anhphong1/anhhienvat1/anhhienvat1.", 53, 69)
+      },
+      {
+        id: "room1_marker4",
+        name: "Danh sách lãnh đạo và cán bộ thời kỳ trước",
+        nameEN: "List of Past Leaders & Officers",
+        viewIndex: 1,
+        xRatio: 0.535,
+        yRatio: 0.46,
+        audio: "",
+        description: `
+          <p>Bảng danh chính lưu danh các cán bộ lãnh đạo, đảng viên và chiến sĩ cách mạng tiêu biểu có đóng góp quan trọng trong các thời kỳ kháng chiến và kiến thiết xây dựng quê hương Phú Giáo.</p>
+        `,
+        descriptionEN: `
+          <p>Honor board listing executive leaders, party members, and outstanding revolutionary soldiers with significant contributions to the resistance wars and growth of Phu Giao.</p>
+        `,
+        images: generateImgArray("anhphong1/anhhienvat1/anhhienvat1.", 70, 72)
+      },
+      {
+        id: "room1_marker5",
+        name: "Hiện vật lịch sử và tư liệu xây dựng",
+        nameEN: "Historical Artifacts & Construction Records",
+        viewIndex: 1,
+        xRatio: 0.895,
+        yRatio: 0.43,
+        audio: "",
+        description: `
+          <p>Tủ kính lưu giữ các kỷ vật, công văn chỉ đạo, bản vẽ quy hoạch cùng tư liệu hiện vật ghi dấu chặng đường đấu tranh và kiến thiết huyện Phú Giáo qua nhiều thế hệ.</p>
+        `,
+        descriptionEN: `
+          <p>Glass display cases preserving relics, official directives, urban plans, and artifacts marking the path of struggle and construction of Phu Giao district over generations.</p>
+        `,
+        images: generateImgArray("anhphong1/anhhienvat1/anhhienvat1.", 73, 116)
+      }
+    ],
+    available: true
   },
   2: {
     name: "Phòng trưng bày 02",
@@ -833,6 +932,7 @@ function toggleMainMenu() {
 // ===== POPUP DRAWER ACTIONS =====
 function showArtifactDrawer(artifact) {
   currentArtifact = artifact;
+  activeDrawerSliderIndex = 0;
 
   // Set title & badge details
   const room = ROOM_DATABASE[activeRoomId];
@@ -1003,16 +1103,47 @@ function setupArtifactImagesTab() {
   const grid = document.getElementById("artifactImagesGrid");
   grid.innerHTML = "";
 
+  const sliderContainer = document.getElementById("drawerSliderContainer");
+  const thumbsContainer = document.getElementById("drawerSliderThumbs");
+
   if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) {
     const noImagesText = currentLang === 'en' ? "No exhibit images available." : "Chưa có hình ảnh hiện vật.";
     grid.innerHTML = `<div style="grid-column: span 3; text-align: center; color: #8c7365; font-size: 13.5px; padding: 30px; font-style: italic;">${noImagesText}</div>`;
+    if (sliderContainer) sliderContainer.style.display = "none";
     return;
+  }
+
+  // Setup slider
+  if (sliderContainer && thumbsContainer) {
+    sliderContainer.style.display = "flex";
+    thumbsContainer.innerHTML = "";
+
+    currentArtifact.images.forEach((imgSrc, idx) => {
+      const thumb = document.createElement("div");
+      thumb.className = "drawer-slider-thumb" + (idx === activeDrawerSliderIndex ? " active" : "");
+      thumb.onclick = () => {
+        activeDrawerSliderIndex = idx;
+        updateDrawerSlider();
+      };
+
+      const thumbImg = document.createElement("img");
+      thumbImg.src = imgSrc;
+      thumbImg.alt = `Thumb-${idx + 1}`;
+      thumb.appendChild(thumbImg);
+      thumbsContainer.appendChild(thumb);
+    });
+
+    updateDrawerSlider();
   }
 
   currentArtifact.images.forEach((imgSrc, idx) => {
     const item = document.createElement("div");
     item.className = "mosaic-item";
-    item.onclick = () => showLightbox(currentArtifact.images, idx);
+    item.onclick = () => {
+      activeDrawerSliderIndex = idx;
+      updateDrawerSlider();
+      showLightbox(currentArtifact.images, idx);
+    };
 
     const img = document.createElement("img");
     img.src = imgSrc;
@@ -1113,6 +1244,50 @@ function formatAudioTime(seconds) {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
   return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+}
+
+// ===== DRAWER SLIDESHOW CONTROL =====
+let activeDrawerSliderIndex = 0;
+
+function updateDrawerSlider() {
+  if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) return;
+  
+  const total = currentArtifact.images.length;
+  const currentImg = currentArtifact.images[activeDrawerSliderIndex];
+  
+  const sliderImg = document.getElementById("drawerSliderImg");
+  if (sliderImg) sliderImg.src = currentImg;
+  
+  const sliderCounter = document.getElementById("drawerSliderCounter");
+  if (sliderCounter) sliderCounter.textContent = `${activeDrawerSliderIndex + 1} / ${total}`;
+  
+  // Highlight active thumbnail and scroll into view
+  const thumbs = document.querySelectorAll(".drawer-slider-thumb");
+  thumbs.forEach((thumb, idx) => {
+    if (idx === activeDrawerSliderIndex) {
+      thumb.classList.add("active");
+      try {
+        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } catch (e) {
+        // Fallback for older browsers (no block/inline options)
+        thumb.scrollIntoView(false);
+      }
+    } else {
+      thumb.classList.remove("active");
+    }
+  });
+}
+
+function slideDrawerImg(direction) {
+  if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) return;
+  const total = currentArtifact.images.length;
+  activeDrawerSliderIndex = (activeDrawerSliderIndex + direction + total) % total;
+  updateDrawerSlider();
+}
+
+function openDrawerImgLightbox() {
+  if (!currentArtifact || !currentArtifact.images || !currentArtifact.images.length) return;
+  showLightbox(currentArtifact.images, activeDrawerSliderIndex);
 }
 
 // ===== LIGHTBOX POPUP IMAGE GALLERY VIEWER =====
