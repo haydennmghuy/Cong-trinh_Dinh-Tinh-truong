@@ -251,17 +251,17 @@ const ROOM_DATABASE = {
       },
       {
         id: "room3_marker2",
-        name: "Bảng danh dự Bà Mẹ Việt Nam Anh Hùng",
-        nameEN: "Vietnamese Heroic Mothers Commemoration Board",
+        name: "Bảng danh dự Bà Mẹ Việt Nam Anh Hùng và Anh hùng lực lượng vũ trang nhân dân",
+        nameEN: "Vietnamese Heroic Mothers Commemoration Board and Heroes of the People's Armed Forces",
         viewIndex: 0,
         xRatio: 0.699,
         yRatio: 0.490,
         audio: "",
         description: `
-          <p>Bảng vàng trang trọng lưu giữ thông tin, chân dung và thành tựu cống hiến lớn lao của các Bà mẹ Việt Nam Anh Hùng trên địa bàn Phú Giáo đã hiến dâng những người con thân yêu cho sự nghiệp giải phóng dân tộc.</p>
+          <p>Bảng vàng tưởng niệm trang trọng lưu giữ thông tin, chân dung và thành tựu cống hiến lớn lao của các Bà mẹ Việt Nam Anh hùng cùng các Anh hùng lực lượng vũ trang nhân dân trên địa bàn huyện Phú Giáo, những người đã hiến dâng thân mình và những người con thân yêu cho sự nghiệp giải phóng dân tộc.</p>
         `,
         descriptionEN: `
-          <p>Solemn roll of honor exhibiting biographical briefs, portraits, and lifetime tributes to the Heroic Vietnamese Mothers of Phu Giao who dedicated their loved ones to the independence cause.</p>
+          <p>Solemn roll of honor exhibiting biographical briefs, portraits, and lifetime tributes to the Heroic Vietnamese Mothers and Heroes of the People's Armed Forces of Phu Giao who dedicated themselves and their loved ones to the independence cause.</p>
         `,
         images: [
           "anhphong3/anhhienvat3/anhhienvat3.46.JPG",
@@ -1539,7 +1539,7 @@ function viewProjectDetails() {
       </div>
 
       <p style="font-size:13.5px; color:#8c7365; font-style:italic;">
-        Toàn bộ dữ liệu hình ảnh, âm thanh và tư liệu lịch sử trong dự án được thu thập từ chuyến khảo sát thực địa của đội hình, với sự hướng dẫn, thuyết minh trực tiếp và hỗ trợ cung cấp thông tin từ Ban quản lý di tích cùng Phòng Văn hóa và Thông tin địa phương.
+        Toàn bộ dữ liệu hình ảnh, âm thanh và tư liệu lịch sử trong dự án được thu thập từ chuyến khảo sát thực địa của đội hình, với sự hướng dẫn, thuyết minh trực tiếp và hỗ trợ cung cấp thông tin từ Ban quản lý di tích.
     </div>
   `;
   openGlobalModal(title, body);
