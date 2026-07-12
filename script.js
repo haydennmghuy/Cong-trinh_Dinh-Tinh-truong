@@ -14,8 +14,8 @@ const ROOM_DATABASE = {
     subtitle: "Phú Giáo trên đường phát triển",
     subtitleEN: "Phu Giao on the path of development",
     views: [
-      "anhphong1/anhtoanphong1/anhtoanphong1.1.JPG",
-      "anhphong1/anhtoanphong1/anhtoanphong1.2.JPG"
+      "anhphong1/anhtoanphong1/anhtoanphong1.2.JPG",
+      "anhphong1/anhtoanphong1/anhtoanphong1.1.JPG"
     ],
     audio: "",
     description: `
