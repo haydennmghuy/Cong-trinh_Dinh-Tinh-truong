@@ -628,6 +628,20 @@ const HERO_GALLERY_IMAGES = [
 let currentViewMode = "building"; // "building" | "room"
 let activeRoomId = null;
 let currentViewIndex = 0; // for room image slideshow
+let isHandlingPopState = false;
+
+function pushHistoryState(stateObj) {
+  if (isHandlingPopState) return;
+  // Initialize if empty
+  if (!history.state) {
+    history.replaceState({ view: "intro" }, "");
+  }
+  // Avoid pushing duplicate states
+  if (history.state && history.state.view === stateObj.view && history.state.roomId === stateObj.roomId && history.state.artifactName === stateObj.artifactName && history.state.type === stateObj.type) {
+    return;
+  }
+  history.pushState(stateObj, "");
+}
 let activeOverlayImage = null;
 let activeLeafletMarkers = [];
 let currentViewWidth = 1200;
@@ -780,12 +794,19 @@ function loadRoomScreen(roomId) {
     }
     const updatingDialog = document.getElementById("updatingDialog");
     if (updatingDialog) updatingDialog.style.display = "flex";
+    if (!isHandlingPopState) {
+      pushHistoryState({ view: 'updating_dialog', roomId: roomId });
+    }
     return;
   }
 
   activeRoomId = roomId;
   currentViewMode = "room";
   currentViewIndex = 0;
+
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'room', roomId: roomId });
+  }
 
   // Update and show capsule title
   const titleNumberStr = currentLang === 'en'
@@ -900,15 +921,27 @@ function slideRoomView(direction) {
 
 // Return to building overview (3D model)
 function navigateBackToBuilding() {
-  hideArtifactDrawer();
-
-  // Hide Leaflet room view and room controls
-  document.getElementById("map").style.display = "none";
-  document.getElementById("sliderPrevBtn").style.display = "none";
-  document.getElementById("sliderNextBtn").style.display = "none";
-  document.getElementById("roomInfoBtn").style.display = "none";
-
-  showBuildingOverview();
+  if (!isHandlingPopState) {
+    if (history.state && history.state.view === "drawer") {
+      history.go(-2);
+    } else if (history.state && history.state.view === "room") {
+      history.back();
+    } else {
+      hideArtifactDrawer();
+      document.getElementById("map").style.display = "none";
+      document.getElementById("sliderPrevBtn").style.display = "none";
+      document.getElementById("sliderNextBtn").style.display = "none";
+      document.getElementById("roomInfoBtn").style.display = "none";
+      showBuildingOverview();
+    }
+  } else {
+    hideArtifactDrawer();
+    document.getElementById("map").style.display = "none";
+    document.getElementById("sliderPrevBtn").style.display = "none";
+    document.getElementById("sliderNextBtn").style.display = "none";
+    document.getElementById("roomInfoBtn").style.display = "none";
+    showBuildingOverview();
+  }
 }
 function clearMarkers() {
   activeLeafletMarkers.forEach(marker => {
@@ -941,6 +974,10 @@ function toggleMainMenu() {
 function showArtifactDrawer(artifact) {
   currentArtifact = artifact;
   activeDrawerSliderIndex = 0;
+
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'drawer', roomId: activeRoomId, artifactName: artifact.name });
+  }
 
   // Set title & badge details
   const room = ROOM_DATABASE[activeRoomId];
@@ -980,6 +1017,10 @@ function showArtifactDrawer(artifact) {
 function showRoomInfo() {
   const room = ROOM_DATABASE[activeRoomId];
   if (!room) return;
+
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'drawer', roomId: activeRoomId, type: 'roomInfo' });
+  }
 
   currentArtifact = null; // Set to null because we are introducing the room itself
 
@@ -1088,6 +1129,12 @@ function hideArtifactDrawer() {
   });
 
   currentArtifact = null;
+
+  if (!isHandlingPopState) {
+    if (history.state && history.state.view === 'drawer') {
+      history.back();
+    }
+  }
 }
 
 // Switch between Info and Image Tabs
@@ -1289,6 +1336,10 @@ function showLightbox(imgList, idx) {
   const lightbox = document.getElementById("lightbox");
   lightbox.style.display = "flex";
 
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'lightbox' });
+  }
+
   updateLightboxContent();
 }
 
@@ -1323,6 +1374,11 @@ function changeLightboxIndex(direction) {
 
 function dismissLightbox() {
   document.getElementById("lightbox").style.display = "none";
+  if (!isHandlingPopState) {
+    if (history.state && history.state.view === 'lightbox') {
+      history.back();
+    }
+  }
 }
 
 // Lightbox keyboard binding & swipe
@@ -1338,6 +1394,11 @@ document.addEventListener("keydown", (e) => {
 // Close popup dialog details for Room 2-5 updating
 function closeDocUpdating() {
   document.getElementById("updatingDialog").style.display = "none";
+  if (!isHandlingPopState) {
+    if (history.state && history.state.view === 'updating_dialog') {
+      history.back();
+    }
+  }
 }
 
 // ===== DRAG SIZE FOR POPUP DRAWER (Kéo ra kéo vào) =====
@@ -1550,6 +1611,10 @@ function openGlobalModal(title, bodyHTML) {
   document.getElementById("globalModalTitle").textContent = title;
   document.getElementById("globalModalBody").innerHTML = bodyHTML;
   document.getElementById("globalModal").style.display = "flex";
+
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'modal' });
+  }
 }
 
 function closeGlobalModal() {
@@ -1559,6 +1624,12 @@ function closeGlobalModal() {
   const modalAudio = document.querySelector("#globalModalBody audio");
   if (modalAudio) {
     modalAudio.pause();
+  }
+
+  if (!isHandlingPopState) {
+    if (history.state && history.state.view === 'modal') {
+      history.back();
+    }
   }
 }
 
@@ -1724,6 +1795,10 @@ function toggleMobileNav() {
 
 // ===== PAGE NAVIGATION =====
 function navigateToIntro() {
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'intro' });
+  }
+
   // Auto close popups/drawers
   hideArtifactDrawer();
   closeGlobalModal();
@@ -1746,6 +1821,10 @@ function navigateToIntro() {
 }
 
 function navigateToMap() {
+  if (!isHandlingPopState) {
+    pushHistoryState({ view: 'map' });
+  }
+
   // Reset scroll position to top to prevent vertical offset shifts
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
@@ -1968,6 +2047,102 @@ function toggleRoomPanel() {
       // Up arrow for expanded state
       iconPath.setAttribute("d", "M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z");
     }
+  }
+}
+
+// ===== BROWSER HISTORY POPSTATE EVENT LISTENER =====
+window.addEventListener("popstate", (event) => {
+  const state = event.state;
+  if (!state) {
+    // If no state, go to intro page
+    isHandlingPopState = true;
+    try {
+      document.getElementById("lightbox").style.display = "none";
+      document.getElementById("globalModal").style.display = "none";
+      const modalAudio = document.querySelector("#globalModalBody audio");
+      if (modalAudio) modalAudio.pause();
+      document.getElementById("updatingDialog").style.display = "none";
+
+      const drawer = document.getElementById("drawerPanel");
+      drawer.classList.remove("open");
+      document.body.classList.remove("drawer-open");
+      document.getElementById("mobileDrawerBackdrop").style.display = "none";
+      pauseAudio();
+
+      navigateToIntro();
+    } catch (e) {
+      console.error("Error going back to initial state:", e);
+    } finally {
+      isHandlingPopState = false;
+    }
+    return;
+  }
+
+  isHandlingPopState = true;
+
+  try {
+    // Close overlays if target state is not that overlay
+    if (state.view !== "lightbox") {
+      document.getElementById("lightbox").style.display = "none";
+    }
+
+    if (state.view !== "modal") {
+      document.getElementById("globalModal").style.display = "none";
+      const modalAudio = document.querySelector("#globalModalBody audio");
+      if (modalAudio) modalAudio.pause();
+    }
+
+    if (state.view !== "updating_dialog") {
+      document.getElementById("updatingDialog").style.display = "none";
+    }
+
+    if (state.view !== "drawer") {
+      const drawer = document.getElementById("drawerPanel");
+      drawer.classList.remove("open");
+      document.body.classList.remove("drawer-open");
+      document.getElementById("mobileDrawerBackdrop").style.display = "none";
+      pauseAudio();
+      document.querySelectorAll("#artifactImagesGrid video").forEach((v) => {
+        v.pause();
+        v.currentTime = 0;
+      });
+      currentArtifact = null;
+    }
+
+    // Now transition to the target state view
+    if (state.view === "intro") {
+      navigateToIntro();
+    } else if (state.view === "map") {
+      navigateToMap();
+    } else if (state.view === "room") {
+      loadRoomScreen(state.roomId);
+    } else if (state.view === "updating_dialog") {
+      loadRoomScreen(state.roomId);
+    } else if (state.view === "drawer") {
+      loadRoomScreen(state.roomId);
+      if (state.type === "roomInfo") {
+        showRoomInfo();
+      } else {
+        const room = ROOM_DATABASE[state.roomId];
+        if (room) {
+          const artifact = room.artifacts.find((a) => a.name === state.artifactName);
+          if (artifact) {
+            showArtifactDrawer(artifact);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.error("Error managing popstate navigation:", e);
+  } finally {
+    isHandlingPopState = false;
+  }
+});
+
+// Initialize initial history state on load
+if (typeof window !== "undefined") {
+  if (!history.state) {
+    history.replaceState({ view: "intro" }, "");
   }
 }
 
