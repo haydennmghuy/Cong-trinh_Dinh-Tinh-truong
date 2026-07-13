@@ -17,7 +17,7 @@ const ROOM_DATABASE = {
       "anhphong1/anhtoanphong1/anhtoanphong1.2.JPG",
       "anhphong1/anhtoanphong1/anhtoanphong1.1.JPG"
     ],
-    audio: "",
+    audio: "audiophong1.mp3",
     description: `
       <p>Phòng trưng bày 01 giới thiệu tổng quan về huyện Phú Giáo trên con đường xây dựng và phát triển. Nơi đây lưu giữ các hình ảnh, hiện vật về sự thay đổi diện mạo kinh tế, xã hội địa phương qua các thời kỳ.</p>
     `,
