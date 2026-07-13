@@ -637,7 +637,7 @@ function pushHistoryState(stateObj) {
     history.replaceState({ view: "intro" }, "");
   }
   // Avoid pushing duplicate states
-  if (history.state && history.state.view === stateObj.view && history.state.roomId === stateObj.roomId && history.state.artifactName === stateObj.artifactName && history.state.type === stateObj.type) {
+  if (history.state && history.state.view === stateObj.view && history.state.roomId === stateObj.roomId && history.state.viewIndex === stateObj.viewIndex && history.state.artifactName === stateObj.artifactName && history.state.type === stateObj.type) {
     return;
   }
   history.pushState(stateObj, "");
@@ -768,7 +768,7 @@ function showBuildingOverview() {
 }
 
 // Load Room Display Mode
-function loadRoomScreen(roomId) {
+function loadRoomScreen(roomId, startViewIndex) {
   // Auto close popups/drawers when opening a room
   hideArtifactDrawer();
   closeGlobalModal();
@@ -802,10 +802,11 @@ function loadRoomScreen(roomId) {
 
   activeRoomId = roomId;
   currentViewMode = "room";
-  currentViewIndex = 0;
+  // Khôi phục viewIndex từ tham số (khi đến từ popstate) hoặc reset về 0
+  currentViewIndex = (startViewIndex !== undefined && startViewIndex !== null) ? startViewIndex : 0;
 
   if (!isHandlingPopState) {
-    pushHistoryState({ view: 'room', roomId: roomId });
+    pushHistoryState({ view: 'room', roomId: roomId, viewIndex: currentViewIndex });
   }
 
   // Update and show capsule title
@@ -917,6 +918,11 @@ function slideRoomView(direction) {
 
   currentViewIndex = (currentViewIndex + direction + room.views.length) % room.views.length;
   renderRoomView();
+
+  // Cập nhật viewIndex trong history state hiện tại (không push state mới)
+  if (history.state && history.state.view === 'room') {
+    history.replaceState({ ...history.state, viewIndex: currentViewIndex }, "");
+  }
 }
 
 // Return to building overview (3D model)
@@ -976,7 +982,8 @@ function showArtifactDrawer(artifact) {
   activeDrawerSliderIndex = 0;
 
   if (!isHandlingPopState) {
-    pushHistoryState({ view: 'drawer', roomId: activeRoomId, artifactName: artifact.name });
+    // Lưu cả viewIndex hiện tại để khi back về room biết ảnh nào đang hiển thị
+    pushHistoryState({ view: 'drawer', roomId: activeRoomId, viewIndex: currentViewIndex, artifactName: artifact.name });
   }
 
   // Set title & badge details
@@ -2115,11 +2122,13 @@ window.addEventListener("popstate", (event) => {
     } else if (state.view === "map") {
       navigateToMap();
     } else if (state.view === "room") {
-      loadRoomScreen(state.roomId);
+      // Khôi phục đúng slide (viewIndex) người dùng đang xem trước khi nhấn back
+      loadRoomScreen(state.roomId, state.viewIndex);
     } else if (state.view === "updating_dialog") {
       loadRoomScreen(state.roomId);
     } else if (state.view === "drawer") {
-      loadRoomScreen(state.roomId);
+      // Khôi phục viewIndex từ state của drawer (ảnh đang hiển thị lúc mở drawer)
+      loadRoomScreen(state.roomId, state.viewIndex);
       if (state.type === "roomInfo") {
         showRoomInfo();
       } else {
